@@ -1,0 +1,36 @@
+https://www.xuewangzhan.net/wpbbs/24720.html
+
+通过代码进行标题的设置
+
+打开自己使用的Wordpress模板，找到头部模板 header.php；
+找到自己的 TIELE、Description、Keywords三大标签代码，将它们替换为以下的代码：
+
+<title>
+<?php if ( is_home() ) { ?>这里写网站首页的标题<?php } ?>
+<?php if ( is_tag() ) { ?><?php single_tag_title(); ?><? $paged = get_query_var('paged'); if ( $paged > 1 ) printf('–  %s  ',$paged); ?> - <?php bloginfo('name'); ?><?php } ?>
+<?php if ( is_page() ) { ?><?php echo trim(wp_title('',0)); ?><?php if (get_query_var('page')) { echo ' - '; echo get_query_var('page'); echo '';}?> - <?php bloginfo('name'); ?><?php } ?>
+<?php if ( is_category() ) { single_cat_title(); echo " - "; bloginfo('name'); $paged = get_query_var('paged'); if ( $paged > 1 ) printf('_  %s  ',$paged);} ?>
+<?php if ( is_single() ) { ?><?php echo trim(wp_title('',0)); ?> - <?php bloginfo('name'); ?><?php } ?>
+<?php if ( is_author() ) { ?>文章列表<?php } ?>
+<?php if ( is_month() || is_day() ) { ?><?php the_time('Y - F'); ?> - <?php bloginfo('name'); ?><?php } ?>
+<?php if (is_search() ) {?>"<?php echo $s; ?>"的搜索结果 - <?php bloginfo('name'); ?><?php } ?>
+<?php if (is_404() ) {?>"404" - <?php bloginfo('name'); ?><?php } ?>
+</title>
+<?php if ( is_home() ) { ?>
+<meta name="description" content="这里写网站首页的描述."/>
+<meta name="keywords" content="这里写网站首页关键词" />
+<?php } ?>
+<?php if ( is_category() ) { ?>
+<meta name="description" content="<?php bloginfo('name'); ?><?php echo single_cat_title(); ?>" />
+<meta name="keywords" content="<?php bloginfo('name'); ?>,<?php echo single_cat_title(); ?>" />
+<?php } ?>
+<?php if ( is_single() ) { ?>
+<meta name="description" content="<?php echo mb_strimwidth(strip_tags(apply_filters('the_content', $post->post_content)), 0, 50,""); ?>" />
+<meta name="keywords" content="<?php $posttags = get_the_tags();if ($posttags) {foreach($posttags as $tag) {echo $tag->name . ','; }}?>" />
+<?php } ?>
+
+
+
+
+
+

@@ -1,0 +1,30 @@
+javascript 参考手册：http://www.w3cschool.cc/jsref/jsref-obj-array.html 点击打开链接
+
+javascript中文网：http://www.itxueyuan.org/ 点击打开链接
+
+帕兰映像前端学习网站：http://paranimage.com/  点击打开链接
+
+爱思源专注web前端网站：http://www.aseoe.com/    点击打开链接
+
+A5资源网站：http://down.admin5.com/点击打开链接
+
+爱酷学js视频网站 :www.icoolxue.com   点击打开链接
+
+51CTO js视频学习网站 ：www.51cto.com  点击打开链接
+
+web面试参考网站： www.w3cfuns.com  点击打开链接
+
+梦想天空web前端学习网站：http://www.cnblogs.com/lhb25/ 点击打开链接
+
+伯乐在线web参考网站： http://blog.jobbole.com/category/webfront/ 点击打开链接
+
+web前端薪酬分析：http://www.aseoe.com/show-23-402-1.html 点击打开链接
+
+8张图学js:http://www.cnblogs.com/coco1s/p/3953653.html 点击打开链接
+
+张旭鑫web学习网站 ：http://www.zhangxinxu.com
+---------------------
+作者：kungfu_panda
+来源：CSDN
+原文：https://blog.csdn.net/kungfu_panda/article/details/38487885
+版权声明：本文为博主原创文章，转载请附上博文链接！

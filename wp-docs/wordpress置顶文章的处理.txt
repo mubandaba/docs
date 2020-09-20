@@ -1,0 +1,46 @@
+wordpress置顶文章的处理
+http://www.xggxgg.com/713.html
+
+
+一、获取置顶文章的id
+
+get_option('sticky_posts'): 获取置顶文章ID，返回包含各置顶文章ID的数组
+
+二、判断文章是否为置顶文章
+
+is_sticky()：循环中判断文章是否是置顶的，是就返回true，不是就返回false
+
+三、取消置顶，按普通方式输出文章
+
+$args = array(
+	'ignore_sticky_posts' => 1, //取消文章置顶（即不在顶部显示），
+								//按照普通方式输出文章，只在首页有效
+);
+query_posts( $args );
+
+$args = array(
+	'ignore_sticky_posts' => 1, //取消文章置顶（即不在顶部显示），
+								//按照普通方式输出文章，只在首页有效
+);
+query_posts( $args );
+四、彻底排除置顶文章
+
+$args => array(
+	'post__not_in'=>get_option("sticky_posts"),
+);
+query_posts( $args );
+$args => array(
+	'post__not_in'=>get_option("sticky_posts"),
+);
+query_posts( $args );
+五、只查询置顶文章
+
+$args => array(
+	'post__in'=>get_option("sticky_posts"),
+);
+query_posts( $args );
+$args => array(
+	'post__in'=>get_option("sticky_posts"),
+);
+query_posts( $args );
+总结：说到底其实核心就是get_option('sticky_posts'): 而已。如果想另外添加个 ‘分类推荐’ 是否 也只需要添加个 add_option('xxx',yyy)，然后get_option('xxx') 呢？疑问啊

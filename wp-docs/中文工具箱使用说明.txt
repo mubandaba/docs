@@ -1,0 +1,101 @@
+1、最新文章
+
+对应函数：<?php get_recent_posts(); ?>
+
+详细说明：
+
+get_recent_posts($no_posts = 5, $before = ‘<li>+ ‘, $after = ‘</li>’, $show_pass_post = false, $skip_posts = 0)
+
+$no_posts：显示文章数，缺省为5条；
+$before：每条记录前显示的文字，缺省<li>
+$after：每条记录后显示的文字，缺省</li>
+$show_pass_post：是(true)/否(false)显示保护了的文章，缺省否(false)
+$skip_posts：跳过多少篇文章，缺省为0；
+
+2、最新留言
+
+对应函数：<?php get_recent_comments(); ?>
+
+详细说明：
+
+get_recent_comments($no_comments = 5, $before = ‘<li> ‘, $after = ‘</li>’, $show_pass_post = false)
+
+$no_comments：显示回响数，缺省为5条；
+$before：每条记录前显示的文字，缺省<li>
+$after：每条记录后显示的文字，缺省</li>
+$show_pass_post：是(true)/否(false)显示保护了的文章，缺省否(false)
+
+如果希望在最新留言里不显示自己的回复。在get_recentcomments() 这个函数里找到这一句
+
+post_status = ‘publish’
+
+在后面 加上
+
+AND comment_author != ‘管理员的昵称’
+
+就可以了。（注意：引号是半角的）
+
+拓展函数：
+
+仅显示留言，不包括引用的函数<?php get_recent_comments_only (); ?>
+仅显示引用（但包括trackback和pingback）<?php get_recent_trackbacks(); ?>
+
+3、评论最多的文章
+
+对应函数：<?php get_mostcommented(); ?>
+
+详细说明：
+
+// Get Top Commented Posts
+
+get_mostcommented($limit = 5)
+
+提示可以使用这个函数来实现热门文章的功能，即评论最多的文章。
+
+4、发表评论最多的朋友
+
+对应函数：<?php get_commentmembersstats(); ?>
+
+详细说明：
+
+get_commentmembersstats($threshhold = 5)
+
+把代码里面的blogmaster改成你自己的名字，可以滤掉你自己的名字。下面加粗的那一项。
+
+// Get Comments’ Members Stats
+// Treshhold = Number Of Posts User Must Have Before It Will Display His Name Out
+// 5 = Default Treshhold; -1 = Disable Treshhold
+function get_commentmembersstats($threshhold = 5) {
+global $wpdb, $tablecomments;
+$comments = $wpdb->get_results(”SELECT comment_author, comment_author_url, COUNT(comment_ID) AS ‘comment_total’ FROM $tablecomments WHERE comment_approved = ‘1′ AND (comment_author != ‘网页教学网’) AND (comment_author != ”)GROUP BY comment_author ORDER BY comment_total DESC”);
+$no = 1;
+
+5、随机文章
+
+对应函数： <?php random_posts(); ?>
+
+详细说明：
+
+random_posts ($limit = 5, $length = 400, $before = ‘<li>’, $after = ‘</li>’, $show_pass_post = false, $show_excerpt_in_title = true)
+
+$limit：显示文章数，缺省5篇；
+$length：摘要长度，缺省400；
+$before：每条记录前显示的文字，缺省<li>
+$after：每条记录后显示的文字，缺省</li>
+$show_pass_post：是(true)/否(false)显示保护了的文章，缺省否(false)
+$show_excerpt_in_title：是(true)，摘要显示于文章链接的title；否(false)，直接显示于页面；缺省是(true)
+
+6、显示摘要
+
+这一功能不需要在主题上调用函数，但需要模板文件支持！
+
+某些情况下需要输出摘要，比如搜索结果、档案，还有 rss 输出，这样可以节省流量资源。但是，如果你的文章是中文的话，官方 WordPress 输出的其实并不是摘要，它只是把文章里的 html 代码过滤掉了，但所有文字都还是原样输出了。
+
+但需要注意的是，你的主题里面应该有archive.php这个模板文件，而且这个模板文件使用的是the_excerpt()来调用内容而不是the_content().如果没有archive.php这个模板文件的话,你可以自己建立一个。具体方法为：
+
+创建一个新文件：archive.php 
+把你主题里 index.php 中所有东西复制到 archive.php 
+保存 archive.php 
+在 archive.php 文件，把 the_content 改成 the_excerpt. 
+再次保存 archive.php 文件就可以了！ 
+如果有archive.php模板文件的话，但是输出的是全文，你可以把the_content()替换为the_excerpt()就可以了！

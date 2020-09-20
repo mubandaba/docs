@@ -1,0 +1,6 @@
+如果不想让客户知道网站是由WordPress制作，则可以修改WordPress控制面板底部的信息，只需要把下面的代码添加到 functions.php文件即可。
+
+function remove_footer_admin () {
+echo 'Fueled by <a href="http://www.wordpress.org" target="_blank">WordPress</a> | Designed by <a href="http://www.uzzz.net" target="_blank">Uzzz Productions</a> | WordPress Tutorials: <a href="http://www.wpbeginner.com" target="_blank">WPBeginner</a></p>';
+}
+add_filter('admin_footer_text', 'remove_footer_admin');

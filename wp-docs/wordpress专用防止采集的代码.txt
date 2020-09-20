@@ -1,0 +1,16 @@
+
+wordpress专用防止采集的代码：
+if(!is_admin()) {
+add_action('init', 'deny_mirrored_request', 0);
+}
+function deny_mirrored_request()
+{
+$ua = $_SERVER['HTTP_USER_AGENT'];
+if(!$ua || preg_match('/PHP/i', $ua)) {
+header("Content-type: text/html; charset=utf-8");
+wp_die('请勿采集本站，因为采集的站长木有小JJ!');
+}
+}
+
+以上代码来自张戈博客，你可以将此代码放入你的function.php内（WEB主题公园的付费用户可以放
+入你的function/function_z.php或者widget.php内即可。）

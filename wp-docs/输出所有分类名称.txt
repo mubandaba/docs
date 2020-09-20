@@ -1,0 +1,11 @@
+输出所有分类名称
+
+<?php $term_query = new WP_Term_Query( array( 'taxonomy' => 'category' ) );
+if ( ! empty( $term_query->terms ) ) {
+    foreach ( $term_query ->terms as $term ) {
+        echo "$term->name"."<br>";
+    }
+} else {
+    echo 'No term found.';
+}
+     ?>

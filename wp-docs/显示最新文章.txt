@@ -1,0 +1,12 @@
+<div id="newpost">
+<h2> 最新文章</h2>
+<?php
+$previous_posts = get_posts('numberposts=15');
+foreach($previous_posts as $post) :
+setup_postdata($post); ?>
+<li><a href="<?php the_permalink(); ?>" id="post-<?php the_ID(); ?>"><?php
+the_title(); ?></a></li>
+<?php /*?><?php the_content(); ?><?php */?>
+<?php endforeach; ?>
+</div>
+<div id="newcomment">

@@ -1,0 +1,19 @@
+https://www.boke8.net/wordpress-get_all_category_ids.html
+
+
+get_all_category_ids()函数可以获取wordpress网站所有分类栏目的ID，通过该函数可以返回一个包括所有分类ID的数组，函数get_all_category_ids()位于 wp-includes/category.php，没有可设置的参数，函数代码：
+
+1
+<?php get_all_category_ids() ?>
+
+
+实例：
+通过分类id输出所有分类名称：
+
+<?php
+$cat_ids = get_all_category_ids();
+foreach($cat_ids as $category) {
+	$cat_name = get_cat_name($category);
+	echo $category . ': ' . $cat_name;
+}
+?>

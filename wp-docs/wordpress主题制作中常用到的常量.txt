@@ -1,0 +1,13 @@
+在制作wordpress主题时，我们会经常用到一些wordpress自带的函数和常量，这些函数和常量可以给我们省去大量的原始代码。本节就给大家列举wordpress主题制作中经常用到的常量，供大家参考。
+
+ABSPATH :网站根目录的绝对路径
+
+WP_CONTENT_DIR ： wp-content目录的磁盘路径
+WP_CONTENT_URL： wp-content目录的URL
+TEMPLATEPATH： 当前主题所在目录路径
+STYLESHEETPATH： 当前主题样式所在目录路径
+WP_PLUGIN_DIR :   定义插件目录的磁盘路径
+WP_PLUGIN_URL :   定义插件目录的URL
+WP_LANG_DIR :   自定义语言包的路径
+WP_POST_REVISIONS :   关闭 WordPress 版本修订功能
+AUTOSAVE_INTERVAL ：定义自动保存的时间

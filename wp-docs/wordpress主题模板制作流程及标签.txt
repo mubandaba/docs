@@ -1,0 +1,365 @@
+博客模板一般包含以下文件：
+1、 index.php 首页模板
+—- header.php 头部
+—- sidebar.php 侧边栏
+—- footer.php 底部
+2、 style.css 样式表
+3、 single.php 文章内页模板
+4、 page.php 页面模板
+5、 archive.php 分类页面模板
+6、 search.php 搜索模板
+7、 404.php 错误提示模板
+
+以下是wordpress主题模板制作流程以及部分标签的调用方法
+
+一、在style.css样式表文件的顶部添加以下主题版权信息：
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+/*
+Theme Name: wp仿站之家
+Theme URI: http://www.linw.net
+Description:这里是wordpress主题的版权说明
+Author: 作者
+Author URI: http://www.linw.net
+Version: 1.0
+Tags: 主题关键词, wordpress模板, wordprss主题
+*/
+二、复制首页文件index.html并重命名为index.php,修改相对路径为绝对路径，修改style.css样式表中的图片路径使得图片与路径对应。
+
+1
+2
+3
+4
+5
+<?php bloginfo(‘name’); ?>             获取博客名字、博客标题
+<?php echo get_option(‘home’); ?>       获取主页路径
+<?php bloginfo(‘template_directory’); ?>  获取主题存放路径
+<?php bloginfo( ‘stylesheet_url’ ); ?>     Style.css路径调用
+<?php bloginfo(‘description’); ?>       博客描述
+三、拆分首页index.php文件为header.php、sidebar.php、footer.php
+
+1
+2
+3
+<?php get_header();?>  头部文件header.php的调用
+<?php get_sidebar();?>  侧边栏sidebar.php的调用
+<?php get_footer();?>  底部文件footer.php的调用
+四、在头部文件header.php的顶部添加以下编码格式、标题、hook信息。
+
+1
+2
+3
+4
+5
+<meta http-equiv=”Content-Type” content=”text/html; charset=<?php bloginfo( ‘charset’ ); ?
+>” />
+<title><?php if (is_home()||is_search()) { bloginfo(‘name’); } else { wp_title(”); print “
+- “; bloginfo(‘name’); } ?> </title>
+<?php wp_head(); ?>
+五、导航菜单的制作。
+1、新建 functions.php 函数文件并添加以下代码。
+
+1
+2
+3
+4
+5
+6
+7
+8
+<?php
+//自定义菜单
+register_nav_menus(
+array(
+‘header-menu’ => __( ‘导航自定义菜单’ ),
+)
+);
+?>
+2、导航位置添加菜单调用代码
+
+1
+<?php wp_nav_menu( array( ‘theme_location’ => ‘header-menu’ ) ); ?>
+3、菜单标签参数列表：
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+//最外层容器的标签名，默认div
+‘container’ => ‘div’,
+//最外层容器的class名
+‘container_class’ => ‘mainNavBlock’,
+//最外层容器的id名
+‘container_id’ => ‘menu’,
+//导航菜单ul标签的class名
+‘menu_class’ => ‘mainNav’,
+//导航菜单ul标签的id名
+‘menu_id’ => “nav”,
+//是否打印，默认是true，如果想将导航的代码作为赋值使用，可设置为false
+‘echo’ => true,
+//备用的导航菜单函数，用于没有在后台设置导航时调用
+‘fallback_cb’ => ‘the_main_nav’,
+//显示在导航a标签之前
+‘before’ => ‘<p>’,
+//显示在导航a标签之后
+‘after’ => ‘</p>’,
+//显示在导航链接名之前
+‘link_before’ => ‘<em>’,
+//显示在导航链接名之后
+‘link_after’ => ‘</em>’,
+//显示的菜单层数，默认0，0是显示所有层
+‘depth’ => 0,
+//调用一个对象定义显示导航菜单
+‘walker’ => new Walker_Nav_Menu(),
+//指定显示的导航名，如果没有设置，则显示第一个
+‘theme_location’ => ‘primary’,
+4、导航分类和页面单独调用。
+(1)页面调用：
+
+1
+<?php wp_list_pages(‘title_li=0&sort_column=menu_order&include=’); ?>
+(2)分类目录调用：
+
+1
+<?php wp_list_categories(‘title_li=0&orderby=name&show_count=0′); ?>
+(3)首页调用：
+
+1
+<li><a href=”<?php echo get_option(‘home’); ?>”>首页</a></li>
+六、侧边栏文件sidebar.php的制作。
+1、分类目录调用：
+
+1
+<?php wp_list_cats(‘sort_column=name&optioncount=1&hierarchical=0′); ?>
+说明：
+hierarchial=0 – 不按照层式结构显示子分类
+optioncount=1 – 显示每个分类含有的日志数
+sort_column=name – 把分类按字符顺序排列
+
+2、最新文章调用：
+
+1
+<?php wp_get_archives(‘type=postbypost&limit=10′); ?>
+说明：
+type=postbypost：按最新文章排列
+limit：限制文章数量最新10篇
+
+3、日期存档调用：
+
+1
+<?php wp_get_archives( ‘type=monthly’ ); ?>
+说明：
+type=monthly按月份读取
+
+4、友情链接的调用：
+
+1
+<?php wp_list_bookmarks(‘title_li=&categorize=0&orderby=rand&limit=24′); ?>
+说明：
+type=monthly按月份读取
+limit：调用友链数量为24个
+
+免插件安装调用友情链接功能，在functions.php文件添加以下代码：
+
+1
+<?php add_filter( ‘pre_option_link_manager_enabled’, ‘__return_true’ ); ?>
+5、元数据调用
+
+1
+2
+注册：<?php wp_register(‘,’); ?>
+登录：<?php wp_loginout(); ?>
+七、小工具调用。
+1、在functions.php函数文件中添加以下代码：
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+<?php
+if ( function_exists(‘register_sidebar’) )
+register_sidebar(array(
+‘before_widget’ => ‘<div class=”sidebox”>   ‘,
+‘after_widget’ => ‘</div>’,
+‘before_title’ => ‘<h2>’,
+‘after_title’ => ‘</h2>’,
+));
+?>
+2、在sidebar.php文件中添加以下调用代码：
+
+1
+2
+<?php if ( !function_exists(‘dynamic_sidebar’) || !dynamic_sidebar() ) : ?>
+<?php endif; ?>
+八、底部文件footer.php的制作
+1、在footer.php文件中添加以下版权信息、并添加歉容代码hook函数
+
+1
+2
+3
+Copyright ©2013
+<a href=” <?php echo get_option(‘home’); ?>”> <?php bloginfo(’name’); ?></a>
+<?php wp_footer(); ?>
+九、首页文件index.php的制作
+1、给相同的内容添加循环标签：
+
+1
+2
+3
+4
+5
+<?php if (have_posts()) : ?>
+<?php while (have_posts()) : the_post(); ?>
+<!– 需要循环输入的重复模块 –>
+<?php endwhile; ?>
+<?php endif; wp_reset_query(); ?>
+说明：
+if(have_posts()) – 检查博客是否有日志。
+while(have_posts()) – 当博客有日志的时候，执行下面 the_post() 这个函数。
+the_post() – 调用具体的日志来显示。
+endwhile; – 遵照规则 #1，这里用于关闭 while()
+endif; – 关闭 if()
+
+2、博客日志的信息调用：
+
+(1)调用标题 ：
+
+1
+<a href=”<?php the_permalink() ?>“><?php the_title_attribute(); ?></a>
+长标题截部分标题代码
+
+1
+<a href=”<?php the_permalink() ?>“><?php echo mb_strimwidth(get_the_title(), 0, 32, ‘…’); ?></a>
+(2)内容调用-全文调用：
+
+1
+<?php the_content(); ?>
+（3)内容调用-摘要调用：
+
+1
+2
+<?php echo mb_strimwidth(strip_tags(apply_filters(‘the_content’, $post->post_content)), 0, 200,“……”);
+?>
+（4)发布日期调用：
+
+1
+2
+3
+<?php the_time(‘F d, Y’) ?>
+<?php the_time(‘m-d’) ?>
+<?php the_date_xml()?>
+（5)所属分类调用：
+
+1
+<?php the_category(‘, ‘) ?>
+（6)文章标签调用：
+
+1
+<?php the_tags(‘标签： ‘, ‘, ‘, ”); ?>
+（7)留言数调用：
+
+1
+<?php comments_popup_link(‘0 条评论’, ‘1 条评论’, ‘% 条评论’, ”, ‘评论已关闭’); ?>
+（8)更多内容调用：
+
+1
+<a href=”<?php the_permalink() ?>“>更多内容</a>
+（9)发表评论调用：
+
+1
+<a href=”<?php the_permalink() ?>#commentform” >发表评论</a>
+（10)显示作者名称：
+
+1
+<?php the_author(); ?>
+（11)分页调用，先安装分页插件WP-PageNavi然后在需要分页的地方插入下面代码：
+
+1
+<?php wp_pagenavi(); ?>
+居中显示效果：
+
+1
+<div style=”text-align:center”><?php wp_pagenavi(); ?></div>
+放置在 <?php endwhile; ?> 和 <?php endif; wp_reset_query(); ?> 中间。
+
+（12)搜索框的代码调用：
+
+1
+2
+3
+4
+<form method=”get” action=”<?php bloginfo(‘url’); ?>/”>
+<input type=”text” value=”<?php the_search_query(); ?>” name=”s” id=”s” />
+<input type=”submit” id=”searchsubmit” value=”Search” />
+</form>
+十一、其他页面的标签调用：
+
+1、添加默认评论模块：
+
+1
+<?php comments_template(); ?>
+放置在 <?php endwhile; ?> 和 <?php endif; wp_reset_query(); ?> 中间。
+
+2、翻页代码的调用：
+
+1
+2
+上一篇：<?php previous_post_link(‘&laquo; %link’); ?>
+下一篇：<?php next_post_link(‘%link &raquo;’); ?>
+3、独立页面制作，添加页面情况称代码：
+
+1
+2
+3
+4
+5
+<?php
+/*
+Template Name: 留言板页面
+*/
+?>
+4、搜索页调用：
+
+1
+2
+3
+<?php endwhile; ?>
+<?php else : ?>
+您搜索的结果不存在，请重新搜索！

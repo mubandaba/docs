@@ -1,0 +1,13 @@
+本段代码写入到当前主题的functions.php中:
+
+/*
+后台"主题"拦中将会显示"小工具","菜单"子栏
+*/
+if ( function_exists('register_sidebar') )
+    register_sidebar(array(
+        'before_widget' => '<div class="sidebox">	',
+        'after_widget' => '</div>',
+        'before_title' => '<h1 class="clear">',
+        'after_title' => '</h1>',
+    ));
+

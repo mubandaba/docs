@@ -1,0 +1,77 @@
+在seo中链接结构（URL）的优化也很重要，下面是一段来自百度官方的SEO优化建议：
+
+ 
+
+简洁美观的url规则
+
+（1）唯一性网站中同一内容页只与唯一一个url相对应，过多形式的url将分散该页面的权重，并且目标url在系统中有被滤重的风险；
+
+（2）简洁性动态参数尽量少，保证url尽量短；
+
+（3）美观性使得用户及机器能够通过url即可判断出页面内容的主旨；
+
+我们推荐如下形式的url：url尽量短且易读使得用户能够快速理解，例如使用拼音作为目录名称；同一内容在系统中只产生唯一的url与之对应，去掉无意义的参数；如果无法保证url的唯一性，尽量使不同形式的url301到目标url；防止用户输错的备用域名301至主域名。
+
+ 
+
+很多SEO大神也说过网站URL的层次尽量不要超过三层这样有利于蜘蛛抓取内容，然而wordpress伪静态后默认的tag页面的链接结构为：http://域名/tag/tag-name/，而tag页的分页链接结构为：http://域名/tag/tag-name/page/page-id/这种形式，明显的已经不符合百度所说的美观简短的结构了，那么我么可以删掉链接中的一层来达到减少链接层次的效果，以去除链接中的/tag/这层为例，代码如下：
+
+
+register_activation_hook(__FILE__,'no_tag_base_refresh_rules');
+add_action('created_post_tag','no_tag_base_refresh_rules');
+add_action('edited_post_tag','no_tag_base_refresh_rules');
+add_action('delete_post_tag','no_tag_base_refresh_rules');
+function no_tag_base_refresh_rules() {
+    global $wp_rewrite;
+    $wp_rewrite->flush_rules();
+}
+register_deactivation_hook(__FILE__,'no_tag_base_deactivate');
+function no_tag_base_deactivate() {
+    remove_filter('tag_rewrite_rules', 'no_tag_base_rewrite_rules');
+    no_tag_base_refresh_rules();
+}
+add_action('init', 'no_tag_base_permastruct');
+function no_tag_base_permastruct() {
+    global $wp_rewrite, $wp_version;
+    if (version_compare($wp_version, '3.4', '<')) {
+        $wp_rewrite -> extra_permastructs['post_tag'][0] = '%post_tag%';
+    } else {
+        $wp_rewrite -> extra_permastructs['post_tag']['struct'] = '%post_tag%';
+    }
+}
+add_filter('tag_rewrite_rules', 'no_tag_base_rewrite_rules');
+function no_tag_base_rewrite_rules($tag_rewrite) {
+    $tag_rewrite=array();
+    $tags=get_tags(array('hide_empty'=>false));
+    foreach($tags as $tag) {
+        $tag_nicename = $tag->slug;
+        if ( $tag->parent == $tag_id ) {
+           $tag->parent = 0;
+        }
+        $tag_rewrite['('.$tag_nicename.')/(?:feed/)?(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?tag=$matches[1]&feed=$matches[2]';
+        $tag_rewrite['('.$tag_nicename.')/page/?([0-9]{1,})/?$'] = 'index.php?tag=$matches[1]&paged=$matches[2]';
+        $tag_rewrite['('.$tag_nicename.')/?$'] = 'index.php?tag=$matches[1]';
+    }
+    global $wp_rewrite;
+    $old_tag_base = get_option('tag_base') ? get_option('tag_base') : 'tag';
+    $old_tag_base = trim($old_tag_base, '/');
+    $tag_rewrite[$old_tag_base . '/(.*)$'] = 'index.php?tag_redirect=$matches[1]';
+    return $tag_rewrite;
+}
+add_filter('query_vars', 'no_tag_base_query_vars');
+function no_tag_base_query_vars($public_query_vars) {
+    $public_query_vars[] = 'tag_redirect';
+    return $public_query_vars;
+}
+add_filter('request', 'no_tag_base_request');
+function no_tag_base_request($query_vars) {
+    if (isset($query_vars['tag_redirect'])) {
+        $tag = user_trailingslashit($query_vars['tag_redirect'], 'post_tag');
+        $taglink = trailingslashit(get_option( 'home' )) . $tag;
+        status_header(301);
+        header("Location: $taglink");
+        exit();
+    }
+    return $query_vars;
+}
+以上代码加到functions.php，加好代码后到后点击一次固定链接即可，现在标签（tag）页面的链接就变成了以下这种结构：http://域名/tag-name/，而tag页的分页链接结构为：http://域名/tag-name/page/page-id/这种形式，并且访问http://域名/tag/tag-name/会自动301转跳到http://域名/tag-name/，访问http://域名/tag/tag-name/page/page-id/会301到http://域名/tag-name/page/page-id/。

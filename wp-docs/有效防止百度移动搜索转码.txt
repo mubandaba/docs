@@ -1,0 +1,4 @@
+在全站头部加个meta：
+
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />

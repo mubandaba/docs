@@ -1,0 +1,5 @@
+安全的调用Wordpress插件模板代码
+<?php if ( function_exists(’plugin_template_tag_function’) ) : ?>
+<h2>部件标题</h2>
+<?php plugin_template_tag_function(); ?>
+<?php endif; ?>

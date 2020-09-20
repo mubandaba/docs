@@ -1,0 +1,17 @@
+为特定分类文章创建不同外观
+
+假设你有两个分类，分别名为"News"和"Tutorials"，然后你想让"News"分类里的单篇文章的
+外观表层为style1.css，让"Tutorials"分类里的单篇文章外观表层为style2.css，Lorelle 提供
+了以下这种比较简单的解决方法：
+打开single.php 文件，并删除里面的所有代码，添加以下代码：
+<?php
+$post = $wp_query->post;
+if ( in_category('9') ) {
+include(TEMPLATEPATH . '/single2.php');
+} else {
+include(TEMPLATEPATH . '/single1.php');
+}
+?>
+通常情况下，PHP会自动查询这段代码，如果日志的分类ID 为9，则会自动显示single2.php，
+如果不是则会显示为single1.php。
+注意：single1.php 和single2.php 里的样式自定义，系统会自动判断加载不同的样式显示

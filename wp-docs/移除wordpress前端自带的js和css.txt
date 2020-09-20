@@ -1,0 +1,76 @@
+wordpress在其wp-head和wp-foot函数中，会自动加载一些js和css，但这些js和css往往在我们实际
+的使用中却无法用到，这就造成了一些资源的浪费，会将我们的网站速度拖慢。
+
+我们之前发布了一篇文章清理header的文章，但是这个清理不是很全面，因此在这里，我们来说明一
+下如何将wordpress所有自动加载的css和js清理掉，让我们的网站速度加载更快。
+
+今天我们从wordpress比较难删除的几个加载开始讲解，网上针对这几个比较难以删除的加载资料很
+少，这里给大家一个解决的方法。
+
+首先说道的是Dashicons.css、thickbox.css、thickbox.js
+dashicons，Dashicons 是 WordPress 3.8 版本引进的图标字体
+
+打开源码，你会发现你的wordpress头部加载了Dashicons.css，文件保存在wp-includes文件夹内，
+这个css样式是wordpress引进的图标字体加载，具体的图标是后台中如“仪表盘”、“文章”等按钮前面
+的图标。
+
+然而在我们的网站前端一般是不用到这个图标的，除了在我们登陆之后，顶部显示的管理员登陆条需
+要这个css显示，因此，我们可以规定，在未登录情况之下，去除掉他，让js加载更快。
+thickbox.css和thickbox.js是wordpress自带的一个弹出层控件
+
+thickbox.css、thickbox.js是wordpress自带并修改过的弹出层控件，在后台的作用是弹出媒体库等
+信息，因此在前端中，我们一般也不需要这个空间，除非是你的主题使用了这个控件只做了弹出效果
+，这需要你查看你的主题介绍或者咨询主题作者，而一般的主题都不会使用它。
+
+因此这个控件的js和css都可以删除，它一共加载了一个css文件，一个js'文件以及一个内置的
+script标签，我们可以将其清理不去加载。
+Dashicons和thickbox的清理方法
+
+将下面的这段代码加入到你的function.php或者其他功能性文件中：
+
+add_action( 'wp_print_styles',     'my_deregister_styles', 100 );
+function my_deregister_styles()    {
+if(!is_user_logged_in()){
+wp_deregister_style( 'amethyst-dashicons-style' );
+wp_deregister_style( 'dashicons' );
+wp_deregister_script('thickbox');}
+}
+
+这样，在未登录时，就不会再加载这些文件了，而在登陆之后访问前端，为了顶部管理员工具条能够
+正常显示，这段代码在登陆之后会自动加载（代码中已作出判断）
+清理emoji表情的脚本加载
+
+wordpress自带了wp-emoji-release.min.js，用于加载emoji表情，这是在wordpress4.2中加入的，
+你可以彻底删除这个表情加载的脚本，可以使用Disable Emojis插件来禁用这个表情，也可以使用一
+下代码放入你的function.php或者关联的功能性文件中：
+
+
+
+remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+remove_action( 'wp_print_styles', 'print_emoji_styles' );
+remove_action( 'admin_print_styles', 'print_emoji_styles' );
+if ( !function_exists( 'disable_embeds_init' ) ) :
+function disable_embeds_init(){
+global $wp;
+$wp->public_query_vars = array_diff($wp->public_query_vars, array('embed'));
+remove_action('rest_api_init', 'wp_oembed_register_route');
+add_filter('embed_oembed_discover', '__return_false');
+remove_filter('oembed_dataparse', 'wp_filter_oembed_result', 10);
+remove_action('wp_head', 'wp_oembed_add_discovery_links');
+remove_action('wp_head', 'wp_oembed_add_host_js');
+add_filter('tiny_mce_plugins', 'disable_embeds_tiny_mce_plugin');
+add_filter('rewrite_rules_array', 'disable_embeds_rewrites');
+}
+add_action('init', 'disable_embeds_init', 9999);
+endif;
+
+
+
+这样就完全禁止加载了。
+
+WEB主题公园的主题近期会批量更新这些清理，对所有的主题进行优化，如果你所使用的主题还在加
+载这些js和css，可以将这些代码自己加在当前主题目录下functions文件夹下的functions_z.php中
+，或者加载widget.php都是可以的，之后的更新之后不需要再重新添加了。
+
+希望此文章可以帮助你优化好你的网站，感谢你的关注。

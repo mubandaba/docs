@@ -1,0 +1,17 @@
+WordPress的显示摘要函数the_excerpt()用的比较多，调用时，在循环内使用即可，并且不需要参数，但是默认他只显示55个字符，并且末尾以[...]结尾，若对这两个更改只需要在主题的functions.php增加以下两小段函数即可：
+
+重新定义摘要的字数：
+
+function new_excerpt_length($length) {
+return 150;
+}
+add_filter("excerpt_length", "new_excerpt_length");
+
+重新定义结尾符号，改为文章的链接：
+
+function new_excerpt_more( $more ) {
+return ' <a class="read-more" href="'. get_permalink( get_the_ID() ) . '">Read More...</a>';
+}
+add_filter( 'excerpt_more', 'new_excerpt_more' );
+
+好了，the_excerpt()的显示就满足你的要求了！

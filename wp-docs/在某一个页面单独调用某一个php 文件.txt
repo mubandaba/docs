@@ -1,0 +1,8 @@
+在某一个页面单独调用某一个php 文件；
+如果你仅想在首页显示某个文件内容，可在index.php 文件中写入以下代码：
+<div> <?php if ( is_home() ) { include (TEMPLATEPATH.'/test.php'); } ?> </div>
+<div> <?php if ( is_category(1) ) { include (TEMPLATEPATH.'/test.php'); } ?> </div>
+页面显示特定内容：（取名字到is_page(‘* ’)）
+<div> <?php if( is_page('contact')) { include (TEMPLATEPATH.'/test.php'); } ?> </div>//判
+断是不contact 页面
+/// is_posted()

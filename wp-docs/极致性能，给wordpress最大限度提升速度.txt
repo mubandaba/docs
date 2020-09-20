@@ -1,0 +1,90 @@
+wordpress本身是一款非常棒的网站程序，响应速度也非常的快，如果希望wordpress运行的更快，追
+求极致性能的达人们可以参见下面的方法提升wordpress的速度：
+
+1.不加载语言包
+
+wordpress的语言包是需要花费 0.1-0.5 秒不等的时间，所以如果 WordPress 前台可以不加载语言
+包，而主题中的一些文本直接写成中文，就可以加快网站的速度，并且又能保证后台的中文编辑的良
+好体验。
+我们可以通过下面的代码实现：
+<?php
+/*
+Plugin Name: WPJAM Diff Lang
+Plugin URI: 
+http://blog.wpjam.com/m/setup-different-admin-and-frontend-language-on-wordpress/
+Description:  WordPress 技巧：前后台设置不同语言
+Version: 0.1
+Author: denishua
+Author URI: http://blog.wpjam.com/
+*/
+add_filter( 'locale', 'wpjam_locale' );
+function wpjam_locale($locale) {
+    $locale = ( is_admin() ) ? $locale : 'en_US';
+    return $locale;
+}
+
+直接将上面的代码复制成一个 WordPress 插件，然后激活即可，注意这次的代码不能复制到主题的 
+functions.php 中
+
+2.使用Delete-Revision插件删除多余的wordpress文章版本和优化数据
+
+     具体使用方法：
+
+1、下载启用插件之后，进入后台，选择“设置”–>“Delete-Revision”，打开插件的管理界面
+
+2、单击Check Redundant Revision（检查冗余日志数量）按钮，这时插件会自动帮你搜索出所有的
+冗余文章版本，如果你要删除这些文章版本，就选择“Yes,I would like to delete them!”（Yes,我
+要删了它！(共xx篇)）进行删除
+
+3、另外在Delete-Revision的管理界面还有一个检查数据库和优化的按钮，点击会列出数据库的状态
+信息，这时注意status栏的信息，如果 Status是绿色的OK，则表明是正常的，不需要任何操作，请
+返回。如果是红色的，可以点击下来的执行数据库优化按钮执行优化。
+
+使用wordpress发布文章的时候，如果按了预览或者编辑了很长时间都没提交发布，就会在数据库中
+自动插入了许多发文版本 （Revision），在发布了文章，确定这些信息没用之后，为了删除这些数
+据库中的信息，这里推荐一款插件Delete-Revision，这个插件可 以替我们删除不必要的版本数据。
+
+3.启用 Memcached 内存缓存
+
+Memcached 是一种高性能的分布式内存对象缓存系统。在动态应用，Memcached 既能提高访问的速度
+，同时还减低了数据库的负载。
+
+由于 WordPress 默认支持 Object Cache，所以在 WordPress 实现 Memcached 就是使用 Memcached 
+把 WordPress 的 Object Cache 写到内存中去，下次直接从内存中读取。相比直接从数据库去读取
+数据，或者从 Object Cache 数据存到文件，然后从硬盘中读取，Memcached 有很大的速度优势。
+
+1. 需要你的服务器支持，就是你的 PHP 需要安装上 Memcached 扩展。你可以通过 phpinfo() 这个 
+PHP 函数来检测。
+
+2. 下载 WordPress Memcached 插件：http://wordpress.org/extend/plugins/memcached
+
+3. 把下载的：object-cache.php 复制到 wp-content，注意不是 wp-content/plugins/。
+
+4. WordPress 会自动检查在 wp-content 目录下是否有 object-cache.php 文件，如果有，直接调
+用它作为 WordPress 对象缓存机制。
+
+4.删除 wp_head 中的无用代码
+
+Really Simple Discovery (RSD) link
+•Windows Live Writer link
+•WordPress generator 信息
+•和日志相关的 Link
+
+将下面所有代码都复制到 functions.php，删除上面的信息
+
+<?php
+remove_action('wp_head', 'rsd_link');
+remove_action('wp_head', 'wlwmanifest_link');
+remove_action('wp_head', 'wp_generator');
+remove_action('wp_head', 'start_post_rel_link');
+remove_action('wp_head', 'index_rel_link');
+remove_action('wp_head', 'adjacent_posts_rel_link');
+?>
+
+5.使用中文主题
+
+中文主题不需要加载语言包，同理和第一条类似，也能够加速wordpress的响应速度！
+
+
+
+如果你是追求极致性能的达人，上面的几个方式应该能够满足你的要求了把！ 希望能够帮助到你！

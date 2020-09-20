@@ -1,0 +1,19 @@
+将下面代码粘贴到主题functions.php文件中：
+
+    function replace_text_wps($text){  
+        $replace = array(  
+            'HotNews' => '<a href="http://zmingcx.com/" rel="bookmark" title="HotNews Pro主题">HotNews</a>',  
+            '知更鸟' => '<a href="http://zmingcx.com/" rel="bookmark" title="知更鸟博客">知更鸟</a>',  
+            '关键词' => '<a href="http://zmingcx.com/" rel="bookmark" title="说明">关键词</a>'  
+        );  
+        $text = str_replace(array_keys($replace), $replace, $text);  
+        return $text;  
+    }  
+      
+    add_filter('the_content', 'replace_text_wps');  
+
+
+
+
+
+

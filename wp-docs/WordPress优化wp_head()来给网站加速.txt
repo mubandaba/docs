@@ -1,0 +1,10 @@
+remove_action( 'wp_head', 'wp_generator' ); // 移除版本号
+remove_action( 'wp_head', 'feed_links_extra', 3 ); //去除评论feed
+remove_action( 'wp_head', 'feed_links', 2 ); //去除文章feed
+remove_action( 'wp_head', 'adjacent_posts_rel_link', 10, 0 ); ///移除相邻文章的url
+remove_action( 'wp_head', 'rsd_link' ); //针对Blog的远程离线编辑器接口
+remove_action( 'wp_head', 'wlwmanifest_link' ); //Windows Live Writer接口
+remove_action( 'wp_head', 'wp_shortlink_wp_head', 10, 0 );//移除自动生成的短链接
+remove_action( 'wp_head', 'index_rel_link' ); //移除当前页面的索引
+remove_action( 'wp_head', 'parent_post_rel_link', 10, 0 ); //移除后面文章的url
+remove_action( 'wp_head', 'start_post_rel_link', 10, 0 ); //移除最开始文章的url

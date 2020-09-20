@@ -1,0 +1,24 @@
+首先在functions.php注册一个侧边栏
+
+//开启后台小工具功能   
+if ( function_exists('register_sidebar') ) {   
+  register_sidebar(array(   
+    'name'=>'侧边栏',
+    'id'=>'sidebar_1',
+    'before_widget' => '<li id="%1$s" class="sidebar_li %2$s">',   
+    'after_widget' => '</li>',   
+    'before_title' => '<h3>',   
+    'after_title' => '</h3>',   
+  ));   
+ }
+
+然后在sidebar.php中添加如下代码:
+<?php if ( is_active_sidebar('sidebar_1')) : ?>
+     <?php dynamic_sidebar('sidebar_1'); ?>
+<?php else: ?>
+
+<?php endif; ?>
+
+再之后在主题中就出现了小工具选项,可以添加"归档","分类"到"侧边栏"上了.
+注意侧边栏可以注册多个,修改name,id属性就可以了.
+参考链接:https://www.cnblogs.com/tinyphp/p/6360193.html

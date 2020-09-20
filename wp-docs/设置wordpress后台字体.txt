@@ -1,0 +1,7 @@
+// 后台字体
+function admin_lettering(){
+    echo'<style type="text/css">
+     body{ font-family: Microsoft YaHei;}
+    </style>';
+    }
+add_action('admin_head', 'admin_lettering');

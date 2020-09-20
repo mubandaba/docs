@@ -1,0 +1,72 @@
+https://www.soyoustart.com
+https://www.online.net
+https://www.hetzner.com
+https://www.kimsufi.com
+
+以下是补充：
+https://www.wholesaleinternet.net
+https://drserver.net/dedicated.php
+
+以下内容感谢@siwangguitar大佬提供合集
+
+1. Kimsufi – 4.19磅（9.99磅安装费）感觉是列表中属于便宜且性能最好的（N2800/D425 2G 1x500G 100M无限 法国/加拿大）另外没法用中国选项
+
+2. Dedimax – 6.99欧（VIA U2250 2G 1x160G 100M无限 法国）
+
+3. Online.net – 8.99欧（20欧安装费）根据坛子里反馈客服就是猴子，电信联通绕美国（C2350 4G 1x1TB/1x160G S 1G（你跑太多会限你）无限 法国/荷兰）
+
+4. Wholesale Internet – 10刀 著名堪萨斯钻石盘就是他们家的（Core2Duo/AMD 248 4G 1x250G 100M无限 美国堪萨斯）
+
+5. Volumedrive – 19.95刀 看起来还可以，托管一台也是19.95刀（Athlon X2 4200+ 4 GB 1x250G
+100M/8T 2IPv4 美国纽约）
+
+6. Nocix – 15刀 这家的15刀套餐要翻到Custom Plan（AMD Quadcore 8G 1x500G 1G/33T 5IPv4 美国堪萨斯，更前面的WSI有点关系，目前断货）
+
+7. RackService – 20.5欧（C2750 8G 1x1T 1G/无限 法国）
+
+8. FirstHeberg – 9.99欧（ATOM 4G 2x500G 100M保证/1G上限 正在询问流量 法国）
+
+9. Digicube – 4.99欧（年付3.99欧）（Atom 230 1G 30GB S 100M无限 法国）
+http://www.digicube.com
+
+10. Hosting.ua – 18.6刀（LE 1150 2G 1x160G 100M无限 乌克兰）
+
+11. OneProvider – 15欧 没之前10欧的有性价比（C2750 8G 1x1T 1G无限 法国）
+
+12. Euserv – 9.52欧（11.9欧安装费）（D425 2G 160G 100M无限 德国）
+
+13. Fusa.is – 10欧（AMD E350 4G 1T 100M/1T 比利时）8/24才有货
+
+http://www.fusa.is/offer/
+
+14. Forpsi – 450捷克克朗（ATOM 2G 1x250G 100M无限 捷克）
+
+15. Scaleway – 2.99欧（ARM 4核 2G 1x50G S 200M外网/1G内网 无限 法国/荷兰）
+
+16. Servdiscount – 11.99欧（S2160 8G 1x500G 300M保证/1G最大 无限 德国）
+
+17. Worldstream.nl – 7.5欧（X2 240 2G 1x250G 100M/5T 荷兰）
+https://www.worldstream.nl/special
+
+18. Mengine.fr – 9.99欧（J2900 8G 1x1T 100M无限 法国）
+
+19. GMhost.hosting – 14刀（Celeron 847 2G 500G 100M无限 乌克兰）
+
+20. UAunit – 20刀（E8400 4G 250G 100M无限 乌克兰）
+
+21. Dream.net.ua – 7.68832刀（200UAH A53 2G 64G SDcard 64G储存卡 100M无限 乌克兰）
+
+22. Aruba – 19欧（Intel双核（估计是E8400这种） 4G 1T 100M/25T 意大利）
+
+https://serverdedicati.aruba.it/server-dedicati/basic-1-4.aspx
+
+23. ikoula – 8.99欧的Green Fish（Atom 510 4G 1T 100M无限 法国）
+
+24. Firstek- 99捷克克朗（ARM Cortex-A53 1G 32G SHDC粗存卡 100M无限 捷克）
+
+25. drserver.net – 14刀(Intel® Atom™ C2750 8G 2T 100M无限 美国堪萨斯)
+
+
+这些应该是mjj没最经常购买的官网了，还有啥？欢迎补充。。
+
+顺带问下，这几家的服务器或者vps控制面板有win系统吗？可以在控制面板中自由更换系统不？

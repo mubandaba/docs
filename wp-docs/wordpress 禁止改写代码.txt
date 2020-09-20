@@ -1,0 +1,5 @@
+remove_filter('the_content', 'wptexturize'); // 禁止英文引号转义为中文引号
+remove_filter('the_content', 'balanceTags'); //禁止对标签自动校正
+remove_filter('the_content', 'wpautop'); //禁止自动为段落加 <p>
+
+以上文件添加到主题functions.php，不过没有自动加<p>很不方便的，不能分段了

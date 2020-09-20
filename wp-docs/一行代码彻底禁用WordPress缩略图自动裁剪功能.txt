@@ -1,0 +1,2 @@
+//彻底禁止WordPress缩略图
+add_filter( 'add_image_size', create_function( '', 'return 1;' ) );

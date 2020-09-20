@@ -1,0 +1,166 @@
+源地址:https://www.cnblogs.com/tinyphp/p/6361901.html
+
+一、使用内置方法 (WordPress 4.1以前无效)
+
+the_posts_pagination 输出分页式导航，用法：
+
+<?php the_posts_pagination( array(
+'mid_size' => 3,
+'prev_text' =>'上一页',
+'next_text' =>'下一页',
+'before_page_number' => '<span class="meta-nav screen-reader-text">第 </span>',
+'after_page_number' => '<span class="meta-nav screen-reader-text"> 页</span>',
+) ); ?>
+
+参数说明：$mid_size---第几个开始显示省略号，$prev_text---上一页文本，$next_text---下一页文本，$before_page_number---页码前，$after_page_number---页码后
+
+<?php if( have_posts() ) : while( have_posts() ) : the_post(); ?>
+<!-- 在这里调用内容 -->
+<?php endwhile; ?>
+//这里放分页代码
+<?php endif; ?>
+
+
+二、自定义方法：
+
+把以下代码放入：functions.php
+
+/**
+* 数字分页函数
+* 因为wordpress默认仅仅提供简单分页
+* 所以要实现数字分页，需要自定义函数
+* @Param int $range            数字分页的宽度
+* @Return string|empty        输出分页的HTML代码        
+*/
+function lingfeng_pagenavi( $range = 4 ) {
+    global $paged,$wp_query;
+    if ( !$max_page ) {
+        $max_page = $wp_query->max_num_pages;
+    }
+    if( $max_page >1 ) {
+        echo "<div class='fenye'>"; 
+        if( !$paged ){
+            $paged = 1;
+        }
+        if( $paged != 1 ) {
+            echo "<a href='".get_pagenum_link(1) ."' class='extend' title='跳转到首页'>首页</a>";
+        }
+        previous_posts_link('上一页');
+        if ( $max_page >$range ) {
+            if( $paged <$range ) {
+                for( $i = 1; $i <= ($range +1); $i++ ) {
+                    echo "<a href='".get_pagenum_link($i) ."'";
+                if($i==$paged) echo " class='current'";echo ">$i</a>";
+                }
+            }elseif($paged >= ($max_page -ceil(($range/2)))){
+                for($i = $max_page -$range;$i <= $max_page;$i++){
+                    echo "<a href='".get_pagenum_link($i) ."'";
+                    if($i==$paged)echo " class='current'";echo ">$i</a>";
+                    }
+                }elseif($paged >= $range &&$paged <($max_page -ceil(($range/2)))){
+                    for($i = ($paged -ceil($range/2));$i <= ($paged +ceil(($range/2)));$i++){
+                        echo "<a href='".get_pagenum_link($i) ."'";if($i==$paged) echo " class='current'";echo ">$i</a>";
+                    }
+                }
+            }else{
+                for($i = 1;$i <= $max_page;$i++){
+                    echo "<a href='".get_pagenum_link($i) ."'";
+                    if($i==$paged)echo " class='current'";echo ">$i</a>";
+                }
+            }
+        next_posts_link('下一页');
+        if($paged != $max_page){
+            echo "<a href='".get_pagenum_link($max_page) ."' class='extend' title='跳转到最后一页'>尾页</a>";
+        }
+        echo '<span>共['.$max_page.']页</span>';
+        echo "</div>\n";  
+    }
+}
+
+
+风格样式：
+
+/*------------------
+    分页部分的CSS
+------------------*/
+.fenye{    
+    height: 25px;
+    line-height: 25px;
+    _background: #F9F9F9;
+    padding: 2px 5px;
+    margin: 20px 4px;
+    _border: solid 1px #ccc;
+    _text-align: center;
+}
+
+.fenye a{
+    padding:4px 6px 4px 6px;
+    margin:0 2px 0 2px;
+    border:1px solid #aaa;
+    text-decoration:none;
+    color:#333;
+}
+
+.fenye a.current{    
+    background:#ff6f3d;    
+    color:#fff;
+}
+
+.fenye a:hover{
+    background:#ff6f3d;
+    color:#fff;
+}
+
+/*-- footer --*/
+.footer {
+    width:100%;
+    height:64px;
+    background:#E6E9ED;
+    border-top: 1px solid #e2e2e3;
+}
+
+
+/*-- post --*/
+.post {
+    background:none;
+}
+
+.post .entry-cnt {
+    height:auto;
+    line-height:2;
+    font-size:14px;
+    border-top-width: 1px;
+    border-top-style: dotted;
+    border-top-color: #eee;
+    padding:15px 0 0;
+}
+
+.post .entry-cnt p {
+    line-height:2;
+    font-size:14px;    
+}
+
+.related {
+    padding:10px 5px 10px 5px;
+    border-top:1px solid #eee;
+    border-bottom:1px solid #eee;
+    margin: 20px auto 10px auto;
+}
+
+.r-left {
+    float:left;
+}
+
+.r-right {
+    float:right;
+}
+
+/*-- discuss --*/
+.discuss {
+    padding:25px;
+}
+
+ 在需要显示分页的地方插入：
+
+<?php lingfeng_pagenavi();?>
+

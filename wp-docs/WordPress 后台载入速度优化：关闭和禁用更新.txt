@@ -1,0 +1,25 @@
+// 彻底关闭自动更新
+add_filter('automatic_updater_disabled', '__return_true');
+//关闭“插件”的自动更新
+add_filter( 'auto_update_plugin', '__return_false' );
+//关闭“主题”的自动更新
+add_filter( 'auto_update_theme', '__return_false' );
+//关闭“语言包”的自动更新
+add_filter( 'auto_update_translation', '__return_false' );
+//禁止发送“更新提示”邮件
+add_filter( 'auto_core_update_send_email', '__return_false' );
+//关闭“开发版内核”更新
+add_filter( 'allow_dev_auto_core_updates', '__return_false' );
+//关闭“主要内核”更新
+add_filter( 'allow_minor_auto_core_updates', '__return_false' );
+// 关闭“次要内核”更新
+add_filter( 'allow_major_auto_core_updates', '__return_false' );
+注：上述代码请放到主题目录下的 function.php 文件里即可，当然你也可以自建 function.php 文件，更多细节可参考『如何方便的在更新主题时保留 functions.php 里的自定义』一文了解。
+
+
+
+
+
+
+
+

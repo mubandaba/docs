@@ -1,0 +1,21 @@
+//在图片中设置图片属性，width=100% height=100% DIV在网页中是固定不会改变，所以当调整DIV时图片//永远是填充满DIV的，即使图片像素不足DIV大，也会被拉伸
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta  charset="utf-8">
+<title>父元素高度确定的多行文本</title>
+<style>
+.girl{
+    width:800px;
+    height:800px;
+}
+</style>
+</head>
+
+<body>
+<div class="girl">
+<img width=100% height=100% src="http://img.mukewang.com/54ffac56000169c001840181.jpg" title="害羞的小女生"/>
+</div>    
+</body>
+</html>

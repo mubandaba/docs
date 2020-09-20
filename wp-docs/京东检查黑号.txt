@@ -1,0 +1,12 @@
+首先到https://quan.jd.com/user_quan.action随便找张东券, 只能用东券，记下券编号, 然后打开地址quan.jd.com/is_can_sharing.action?batchId=1&couponId=编号
+
+如果是黑号, 且券编号正确的情况下, 直接显示如下
+{"data":"{\"message\":\"用户风险等级限制，不可分享/共享/售卖\",\"resultCode\":13,\"success\":true}","success":true}
+
+其它情况不明
+
+大家不用猜是不是黑号了，直接查到。
+提示风险的100%黑号, 提示查询券失败是券编号不对, 要对才能查是不是风险。
+
+
+地址:http://www.zuanke8.com/archiver/?tid-4004714.html

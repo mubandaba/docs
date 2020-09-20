@@ -1,0 +1,7 @@
+每一个博客都应该有一个独一无二的标志，你可以通过添加代码到header.php来实现。当然，你也可以通过添加代码到functions.php来实现。添加完下面的代码后，只需要把Favicon.ico文件上传到网站根目录即可。
+
+// add a favicon to your
+function blog_favicon() {
+echo '<link rel="Shortcut Icon" type="image/x-icon" href="'.get_bloginfo('wpurl').'/favicon.ico" />';
+}
+add_action('wp_head', 'blog_favicon');

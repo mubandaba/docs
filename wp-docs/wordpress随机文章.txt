@@ -1,0 +1,67 @@
+// 随机文章
+class random_post extends WP_Widget {
+     function random_post() {
+         $widget_ops = array('description' => '主题自带的随机文章小工具');
+         $this->WP_Widget('random_post', '主题&nbsp;&nbsp;随机文章', $widget_ops);
+     }
+     function widget($args, $instance) {
+		extract($args);
+		$title = apply_filters( 'widget_title', $instance['title'] );
+		echo $before_widget;
+		if ( ! empty( $title ) )
+		echo $before_title . $title . $after_title;
+		$number = strip_tags($instance['number']) ? absint( $instance['number'] 
+		) : 5;
+?>
+
+<div id="random_post_widget">
+	<ul>
+		<?php query_posts( array ( 'orderby' => 'rand', 'showposts' => $number, 
+		'caller_get_posts' => 10 ) ); while ( have_posts() ) : the_post(); ?>
+			<li><a href="<?php the_permalink() ?>" rel="bookmark" title="详
+			细阅读 <?php the_title(); ?>"><i class="icon-li"></i><?php 
+			the_title(); ?></a></li>
+		<?php endwhile; ?>
+		<?php wp_reset_query(); ?>
+	</ul>
+</div>
+
+<?php
+	echo $after_widget;
+	}
+	function update( $new_instance, $old_instance ) {
+		if (!isset($new_instance['submit'])) {
+			return false;
+		}
+			$instance = $old_instance;
+			$instance = array();
+			$instance['title'] = strip_tags( $new_instance['title'] );
+			$instance['number'] = strip_tags($new_instance['number']);
+			return $instance;
+		}
+	function form($instance) {
+		if ( isset( $instance[ 'title' ] ) ) {
+			$title = $instance[ 'title' ];
+		}
+		else {
+			$title = '随机文章';
+		}
+		global $wpdb;
+		$instance = wp_parse_args((array) $instance, array('number' => '5'));
+		$number = strip_tags($instance['number']);
+?>
+	<p><label for="<?php echo $this->get_field_id( 'title' ); ?>">标题：</label>
+	<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" 
+	name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php 
+	echo $title; ?>" /></p>
+	<p><label for="<?php echo $this->get_field_id('number'); ?>">显示数量：</label>
+	<input id="<?php echo $this->get_field_id( 'number' ); ?>" name="<?php echo 
+	$this->get_field_name( 'number' ); ?>" type="text" value="<?php echo $number; 
+	?>" size="3" /></p>
+	<input type="hidden" id="<?php echo $this->get_field_id('submit'); ?>" 
+	name="<?php echo $this->get_field_name('submit'); ?>" value="1" />
+<?php }
+}
+add_action( 'widgets_init', create_function( '', 'register_widget( "random_post" );' ) 
+);
+

@@ -1,0 +1,18 @@
+将下面代码复制粘贴到functions.php
+
+/* 文章图片自动添加alt和title信息 */
+function tin_image_alt($content){
+global $post;
+$pattern = "/<img(.*?)src=('|\")(.*?).(bmp|gif|jpeg|jpg|png)('|\")(.*?)>/i";
+$replacement = '<img$1src=$2$3.$4$5 alt="'.$post->post_title.'" title="'.$post->post_title.'"$6>';
+$content = preg_replace($pattern,$replacement,$content);
+return $content;
+}
+add_filter('the_content','tin_image_alt',15);
+
+
+
+
+
+
+

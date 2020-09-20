@@ -1,0 +1,6 @@
+打开 WordPress 根目录下的 wp-config.php 文件，在 define('WP_DEBUG', false); 之后添加以下代码：
+
+    //自动保存10小时一次
+    define('AUTOSAVE_INTERVAL', 36000);
+    //禁用修订版本
+    define('WP_POST_REVISIONS',false);

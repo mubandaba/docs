@@ -1,0 +1,16 @@
+在逛loc的时候发现了一段很有意思的代码，转过来放着。功能是利用JS脚本获取freegeoip的API信息对访问来路的国家与地区判定来进行跳转。虽然这代码很有意思但我建议并不要用来做严格的屏蔽，因为他很容易被绕过！并且无法阻挡蜘蛛这种Bot。需要自行引用jQuery。
+
+<script type="text/javascript">
+    $(document).ready(function () {
+      jQuery.ajax({
+                  url: 'http://freegeoip.net/json/',
+                  type: 'POST',
+                  dataType: 'jsonp',
+                  success: function (location) {
+              if (location.country_code == '国家代码比如VN') {
+                  window.top.location.href = '自定义禁止页面';
+                    }
+                  }
+                });
+               });
+</script>

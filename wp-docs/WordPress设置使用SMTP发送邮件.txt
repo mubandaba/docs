@@ -1,0 +1,43 @@
+部分主机商禁用了mail()函数，导致用户注册或者找回密码的时候都无法获取邮件。即使是支持了mail()函数，发送的邮件进入垃圾箱的几率也非常高，所以我们为了解决这个问题使用SMTP代发是非常不错的方式。
+如果不想动手也可以使用WP SMTP插件，新手建议使用这个方法，如果为了提高wordpress效率，那么推荐使用代码的方式。将下面的代码添加到主题目录的functions.php文件中。
+
+//使用smtp发送邮件，星悦使用的是QQ邮箱，你可以参照你使用的邮箱具体设置SMTP
+add_action('phpmailer_init', 'mail_smtp');
+function mail_smtp( $phpmailer ) {
+$phpmailer->FromName = '星悦博客'; //发件人
+$phpmailer->Host = 'smtp.exmail.qq.com'; //修改为你使用的SMTP服务器
+$phpmailer->Port = 465; //SMTP端口，开启了SSL加密
+$phpmailer->Username = 'service@xiaoz.me'; //邮箱账户 
+$phpmailer->Password = '******'; //输入你对应的邮箱密码，这里使用了*代替
+$phpmailer->From = 'www@qq.com'; //你的邮箱 
+$phpmailer->SMTPAuth = true; 
+$phpmailer->SMTPSecure = 'ssl'; //tls or ssl （port=25留空，465为ssl）
+$phpmailer->IsSMTP();
+}
+
+
+端口。
+
+ 
+邮箱 	SMTP服务器地址 	非SSL端口号 	SSL端口号
+163.com 	smtp.163.com 	25 	465或994
+126.com 	smtp.126.com 	25 	465或994
+qq.com 	smtp.qq.com 	25 	465或587
+网易企业邮箱 	smtp.qiye.163.com 	25 	994
+腾讯企业邮箱 	smtp.exmail.qq.com 	25 	465
+
+ 
+
+ 
+
+
+ 
+邮箱 	        SMTP服务器地址 	        非SSL端口号 	SSL端口号
+163.com 	smtp.163.com 	              25 	465或994
+126.com 	smtp.126.com 	              25 	465或994
+qq.com 	        smtp.qq.com 	              25 	465或587
+网易企业邮箱 	smtp.qiye.163.com 	      25 	994
+腾讯企业邮箱 	smtp.exmail.qq.com 	      25 	465
+
+ 
+

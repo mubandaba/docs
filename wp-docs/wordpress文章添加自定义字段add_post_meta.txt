@@ -1,0 +1,52 @@
+1.简介
+add_post_meta 添加一个自定义字段（Custom Field）到指定的日志，页面或者 post type 中。
+如果 $unique 参数设置为 true，并且指定的 meta key 已存在，那么这个函数返回 false 并且不对现有的字段做任何修改，否则添加字段并返回 true。
+2.用法
+
+<?php add_post_meta($post_id, $meta_key, $meta_value, $unique); ?>
+3.参数
+$post_id
+(integer) (required) 将要添加自定义字段的日志 ID。
+Default: None
+
+$meta_key
+(string) (required) 将要添加自定义字段的名称（key）。
+Default: None
+
+$meta_value
+(mixed) (required) 将要添加自定义字段的值，如果是一个数组，将会被序列化成字符串。
+Default: None
+
+$unique
+(boolean) (optional) 设置当前的 key 是否为唯一的，当设置为 true，将保证当前日志没有以 $meta_key 作为 key 的自定义字段，并且如果已经存在，则添加不成功。
+Default: false
+
+4.返回值
+(bool)
+添加成功返回 true，否则返回 false。
+
+5.实例
+基本用法
+
+<?php add_post_meta(68, 'my_key', 47); ?>
+添加或者更新唯一的自定义字段
+如果 key 还不存在，就添加一个新的自定义字段，如果存在，就更新它：
+
+<?php
+if ( ! add_post_meta( 7, 'fruit', 'banana', true ) ) { 
+   update_post_meta ( 7, 'fruit', 'banana' );
+}
+?>
+添加多个值的自定义字段
+给 key 名为 “my_key” 的自定义字段添加多个值：
+
+<?php add_post_meta(68, 'my_key', '47'); ?>
+<?php add_post_meta(68, 'my_key', '682'); ?>
+<?php add_post_meta(68, 'my_key', 'The quick, brown fox jumped over the lazy dog.'); ?>
+添加一个“隐藏”的自定义字段
+默认情况下，你添加的自定义字段会在后台日志或者页面编辑器下面自定义区域显示，或者会被 the_meta() 函数可以调用，但是如果你是一个 WordPress 插件或者主题开发者，打算使用自定义字段来存储一些数据，并且不希望用户能够自己修改它，你可以通过给自定义字段的 key 以下划线（“_”）开始，则不会在后台显示。
+
+<?php add_post_meta(68, '_color', 'red', true); ?>
+比如上面实例就是添加了一个 key 名为 “_color” 值为 “red” 的自定义字段，这个字段将不会显示在在后台的日志或者页面的编辑页面。
+
+另外，如果 $meta_value 是一个数组，也不会显示在后台的日志或者页面的编辑页面。

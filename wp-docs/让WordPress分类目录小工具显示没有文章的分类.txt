@@ -1,0 +1,19 @@
+我们可以给widget_categories_args添加过滤函数来修改$cat_args的值，代码如下:
+
+/**
+ * 修改WordPress分类目录小工具让它显示没有文章的分类
+ * http://www.wptoutiao.com/
+ **/
+function wptoutiao_widget_categories_args($cat_args) {
+    $cat_args['hide_empty'] = 0;
+    return $cat_args;
+}
+add_filter( 'widget_categories_args', 'wptoutiao_widget_categories_args' );
+
+
+将上面代码复制到WordPress主题目录的functions.php文件中，就可以实现让分类目录小工具显示空的分类了。
+
+
+
+
+

@@ -1,0 +1,9 @@
+wordpress 获取同级目录
+
+echo $cat;
+$args = array(
+    'orderby' => name,  //获取指定ID下的所有子级目录
+    'show_count'=> 1,
+    'child_of'=>$cat
+); 
+wp_list_categories($args); 

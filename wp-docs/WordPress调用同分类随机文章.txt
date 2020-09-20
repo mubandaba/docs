@@ -1,0 +1,25 @@
+在适当的位置显示调用随机文章可以促进网站内链，增加文章阅读点击量，有利于SEO，网上大部分Wordpress调用随机文章代码都是基于全站文章，这里发一个调用同分类随机文章的代码。
+
+将下面代码放到主题文章页面single模板或者边栏sidebar模板适当位置即可：
+
+    <ul>
+        <?php
+        $cat = get_the_category();
+        foreach($cat as $key=>$category){
+            $catid = $category->term_id;
+        }
+        $args = array('orderby' => 'rand','showposts' => 8,'cat' => $catid );
+        $query_posts = new WP_Query();
+        $query_posts->query($args);
+        while ($query_posts->have_posts()) : $query_posts->the_post();
+        ?>
+        <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
+        <?php endwhile;?>
+        <?php wp_reset_query(); ?>
+    </ul>
+
+
+
+
+
+

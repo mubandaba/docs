@@ -1,0 +1,16 @@
+首先要说明一下,小工具里的文本,是不支持php语言的,所以你填上去是不会有结果,WordPress文本小工具中可以添加任意HTML代码,但默认PHP代码添加到文本小工具中却不能运行,下面的这段代码很有用!
+
+将以下代码添加到您当前主题的 functions.php 文件
+添加完保存后，就可以将一个文本小工具添加到侧边栏中，并在其中输入PHP函数代码，看看是不是可以正常运行了。
+	
+//文件添加PHP代码
+add_filter('widget_text', 'php_text', 99);
+function php_text($text) {
+if (strpos($text, '<' . '?') !== false) {
+ob_start();
+eval('?' . '>' . $text);
+$text = ob_get_contents();
+ob_end_clean();
+}
+return $text;
+}

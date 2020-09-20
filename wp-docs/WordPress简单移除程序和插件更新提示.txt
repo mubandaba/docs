@@ -1,0 +1,16 @@
+只需要将下面的代码块复制到主题下的 functions.php 文件中，最好连注释一起复制，方便日后阅读和使用代码：
+
+
+    // 移除wordpress核心更新提示
+    add_filter( 'pre_site_transient_update_core', create_function( '$a', "return null;" ) );
+
+
+
+    // 移除wordpress插件更新提示
+    remove_action( 'load-update-core.php', 'wp_update_plugins' );
+    add_filter( 'pre_site_transient_update_plugins', create_function( '$b', "return null;" ) );
+
+
+
+
+

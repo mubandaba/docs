@@ -1,0 +1,32 @@
+如果你是用WordPress搭建的网站，你是不是想知道你的文章被多少人点击看过？一些用于统计点击次数的插件可以解决这个问题，比如PostViews，可是又怕插件会让网站变慢。今天要推荐的是一个更简单的不用任何插件实现点击数统计的方法。首先，需要创建相关的函数。你可以把下面的代码粘贴到你所用主题的 functions.php 文件里。
+
+function getPostViews($postID){
+    $count_key = 'post_views_count';
+    $count = get_post_meta($postID, $count_key, true);
+    if($count==''){
+        delete_post_meta($postID, $count_key);
+        add_post_meta($postID, $count_key, '0');
+        return "0 View";
+    }
+    return $count.' Views';
+}
+function setPostViews($postID) {
+    $count_key = 'post_views_count';
+    $count = get_post_meta($postID, $count_key, true);
+    if($count==''){
+        $count = 0;
+        delete_post_meta($postID, $count_key);
+        add_post_meta($postID, $count_key, '0');
+    }else{
+        $count++;
+        update_post_meta($postID, $count_key, $count);
+    }
+}
+ 
+
+然后，粘贴下面的代码到主题的 single.php 的文章的 loop 里：
+
+<?php setPostViews(get_the_ID()); ?>
+最后，把下面的代码拷贝到任意你的主题模板里想要显示点击数的地方：
+
+<?php echo getPostViews(get_the_ID()); ?>

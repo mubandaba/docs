@@ -1,0 +1,33 @@
+/* WordPress文字标签关键词自动内链*/
+$match_num_from = 1; //一篇文章中同一個標籤少於幾次不自動鏈接
+$match_num_to = 4; //一篇文章中同一個標籤最多自動鏈接幾次
+function tag_sort($a, $b){
+if ( $a->name == $b->name ) return 0;
+return ( strlen($a->name) > strlen($b->name) ) ? -1 : 1;
+}
+function tin_tag_link($content){
+global $match_num_from,$match_num_to;
+$posttags = get_the_tags();
+if ($posttags) {
+usort($posttags, "tag_sort");
+$ex_word = '';
+$case = '';
+foreach($posttags as $tag) {
+$link = get_tag_link($tag->term_id);
+$keyword = $tag->name;
+$cleankeyword = stripslashes($keyword);
+$url = "<a href=\"$link\" class=\"tooltip-trigger tin\" title=\"".str_replace('%s',addcslashes($cleankeyword, '$'),__('查看更多关于 %s 的文章'))."\"";
+$url .= ' target="_blank"';
+$url .= ">".addcslashes($cleankeyword, '$')."</a>";
+$limit = rand($match_num_from,$match_num_to);
+$content = preg_replace( '|(<a[^>]+>)(.*)<pre.*?>('.$ex_word.')(.*)<\/pre>(</a[^>]*>)|U'.$case, '$1$2$4$5', $content);
+$content = preg_replace( '|(<img)(.*?)('.$ex_word.')(.*?)(>)|U'.$case, '$1$2$4$5', $content);
+$cleankeyword = preg_quote($cleankeyword,'\'');
+$regEx = '\'(?!((<.*?)|(<a.*?)))('. $cleankeyword . ')(?!(([^<>]*?)>)|([^>]*?</a>))\'s' . $case;
+$content = preg_replace($regEx,$url,$content,$limit);
+$content = str_replace( '', stripslashes($ex_word), $content);
+}
+}
+return $content;
+}
+add_filter('the_content','tin_tag_link',12);

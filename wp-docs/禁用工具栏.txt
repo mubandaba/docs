@@ -1,0 +1,2 @@
+/*禁用工具栏*/
+show_admin_bar(false);

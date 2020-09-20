@@ -1,0 +1,35 @@
+禁止WordPress头部加载s.w.org:
+
+方法一:
+remove_action( 'wp_head', 'wp_resource_hints', 2 );
+
+方法二:
+
+function remove_dns_prefetch( $hints, $relation_type ) {
+if ( 'dns-prefetch' === $relation_type ) {
+return array_diff( wp_dependencies_unique_hosts(), $hints );
+}
+return $hints;
+}
+add_filter( 'wp_resource_hints', 'remove_dns_prefetch', 10, 2 );
+=============================================================================
+
+禁止加载表情代码:
+
+// 禁止加载表情
+remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+remove_action( 'wp_print_styles', 'print_emoji_styles' );
+add_filter( 'emoji_svg_url', '__return_false' );
+
+============================================================================
+禁止加载:<link rel='https://api.w.org/' href='http://blog.com/wp-json/' />
+
+
+//移除wp-json
+add_filter('rest_enabled', '__return_false');
+add_filter('rest_jsonp_enabled', '__return_false');
+remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
+remove_action( 'wp_head', 'wp_oembed_add_discovery_links', 10 );
+remove_action( 'template_redirect', 'rest_output_link_header', 11, 0 );
+
+

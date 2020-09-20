@@ -1,0 +1,5 @@
+wordpress中WP_Query和wpdb类介绍
+
+参考资料：
+https://codex.wordpress.org/Class_Reference/WP_Query
+https://codex.wordpress.org/Class_Reference/wpdb

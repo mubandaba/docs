@@ -1,0 +1,7 @@
+方法/步骤
+1打开Sublime Text 3 软件会弹出“Update Available”对话框，点击“Cancel”按钮取消；
+2点击菜单栏“Preferences”=> "Settings-User" 进入个人参数设置页面；
+3进入参数设置界面后，找到大括号“｛｝”的位置；
+4在大括号"｛｝"里面插入下面代码："update_check": false,
+5直接保存个人参数设置页面，或者关闭后提示的对话框选择"Yes"设置save changes；
+6设置好后，重启软件是不是没有弹出自动更新对话框了呢。

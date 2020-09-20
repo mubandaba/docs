@@ -1,0 +1,2 @@
+模板函数文件：functions.php
+add_filter('pre_option_link_manager_enabled','__return_true');

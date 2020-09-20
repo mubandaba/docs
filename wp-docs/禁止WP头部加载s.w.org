@@ -1,0 +1,14 @@
+升级到4.6版本之后，查看博客首页源代码时，会发现多出一个<link rel='dns-prefetch' href='//s.w.org'>，这是新版添加了dns-prefetch功能，其从s.w.org网站调用表情和头像等数据，加快博客访问速度。
+
+不过国内不可以访问s.w.org，所以不但没有起到加快作用，反而还会减慢网站访问速度，那我们就将其禁止好了。
+
+方法非常简单，在您博客主题的functions.php文件中添加如下的代码即可：
+
+function remove_dns_prefetch( $hints, $relation_type ) {
+if ( 'dns-prefetch' === $relation_type ) {
+return array_diff( wp_dependencies_unique_hosts(), $hints );
+}
+return $hints;
+}
+add_filter( 'wp_resource_hints', 'remove_dns_prefetch', 10, 2 );
+如您不会修改，也可以联系我帮忙修改！

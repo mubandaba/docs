@@ -1,0 +1,11 @@
+用WordPress给客户制作网站，如果给WordPress的控制面板后台添加一个自定义logo，则会让网站显的专业很多。要做到这一点，你只需要把代码添加到functions.php即可。
+//hook the administrative header output
+add_action('admin_head', 'my_custom_logo');
+function my_custom_logo() {
+echo '
+<style type="text/css">
+#header-logo { background-image: url('.get_bloginfo('template_directory').'/images/custom-logo.gif) !important; }
+</style>
+';
+}
+注：代码里面的html部分可以修改。

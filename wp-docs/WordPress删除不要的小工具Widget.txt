@@ -1,0 +1,24 @@
+WordPress为我们提供了很多Widget，但并不一定所有的widget都是自己想要的，如果你想要你的后台更简洁一些，可以移除一些Widget。方法如下：
+
+ function unregister_default_widgets() {
+unregister_widget("WP_Widget_Pages");
+unregister_widget("WP_Widget_Calendar");
+unregister_widget("WP_Widget_Archives");
+unregister_widget("WP_Widget_Links");
+unregister_widget("WP_Widget_Meta");
+unregister_widget("WP_Widget_Search");
+unregister_widget("WP_Widget_Text");
+unregister_widget("WP_Widget_Categories");
+unregister_widget("WP_Widget_Recent_Posts");
+unregister_widget("WP_Widget_Recent_Comments");
+unregister_widget("WP_Widget_RSS");
+unregister_widget("WP_Widget_Tag_Cloud");
+unregister_widget("WP_Nav_Menu_Widget");
+}
+add_action("widgets_init", "unregister_default_widgets", 11);
+
+在这个例子中，我们删掉了所有Wordpress默认的Widget。你可以根据自己的需要选择其中的一部分。
+
+所有的小工具Widget代码可以在?wp-includes目录下的?default-widgets.php 中找到，打开该文件随便搜索一个就能找到所在位置，比如搜索 “WP_Widget_Pages”,很快找到了Widget代码所在位置。
+
+欢迎转载，但请保留原文地址 http://www.sjyhome.com/wordpress/wp-delete-widget.html

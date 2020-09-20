@@ -1,0 +1,27 @@
+https://www.cnblogs.com/ghosth/p/5810399.html
+<?php
+     $sticky = get_option('sticky_posts'); 
+      query_posts( array('post__in' => $sticky,'caller_get_posts' =>1,'cat'=>6,'showposts'=>6)); 
+       static $case_num=0; 
+     while (have_posts()) : the_post(); 
+     $url=get_gllary(get_the_ID()); ?>
+                              // 置顶文章循环内容
+<?php $case_num++;
+     endwhile; wp_reset_query();  
+          $case_num=6-$case_num;//
+          query_posts( array( 'post__not_in' => get_option( 'sticky_posts'),'cat'=>6,'showposts'=>$case_num ));
+       while (have_posts()) : the_post();
+        $url=get_gllary(get_the_ID()); ?>
+
+      //非置顶文章循环内容
+
+      <?php endwhile; wp_reset_query(); ?>      
+
+//循环显示6篇文章，，置顶文章数量不够则自动循环最新文章
+
+
+
+
+
+
+

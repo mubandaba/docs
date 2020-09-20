@@ -1,0 +1,43 @@
+所谓面包屑（breadcrumb）导航，类似这种：首页 > 公司简介 > 发展历史 展示网站树型结构，并让网站访问者随时知道自己所处的位置，方便返回上几级。下面这段代码，可以很容易地将导航添加到你的WordPress博客中。
+
+打开主题functions.php模板，将以下代码加进去:
+
+    function the_breadcrumb() {
+                    echo '<ul id="crumbs">';
+            if (!is_home()) {
+                    echo '<li><a href="';
+                    echo get_option('home');
+                    echo '">';
+                    echo 'Home';
+                    echo "</a></li>";
+                    if (is_category() || is_single()) {
+                            echo '<li>';
+                            the_category(' </li><li> ');
+                            if (is_single()) {
+                                    echo "</li><li>";
+                                    the_title();
+                                    echo '</li>';
+                            }
+                    } elseif (is_page()) {
+                            echo '<li>';
+                            echo the_title();
+                            echo '</li>';
+                    }
+            }
+            elseif (is_tag()) {single_tag_title();}
+            elseif (is_day()) {echo"<li>Archive for "; the_time('F jS, Y'); echo'</li>';}
+            elseif (is_month()) {echo"<li>Archive for "; the_time('F, Y'); echo'</li>';}
+            elseif (is_year()) {echo"<li>Archive for "; the_time('Y'); echo'</li>';}
+            elseif (is_author()) {echo"<li>Author Archive"; echo'</li>';}
+            elseif (isset($_GET['paged']) && !empty($_GET['paged'])) {echo "<li>Blog Archives"; echo'</li>';}
+            elseif (is_search()) {echo"<li>Search Results"; echo'</li>';}
+            echo '</ul>';
+    }
+
+
+并将如下调用代码添加到主题模板的适当位置即可：
+
+<?php the_breadcrumb(); ?>
+
+并根据不同的主题配以相应的css样式。
+

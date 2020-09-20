@@ -1,0 +1,32 @@
+<?php the_author(); ?> 显示文章的作者
+<?php the_author_description(); ?> 显示文章作者的描述（作者个人资料中的描述）
+<?php the_author_login(); ?> 显示文章作者的登录名
+<?php the_author_firstname(); ?> 显示文章作者的firstname（名）
+<?php the_author_lastname(); ?> 显示文章作者的lastname（姓）
+<?php the_author_nickname(); ?> 显示文章作者的昵称
+<?php the_author_ID(); ?> 显示文章作者的ID号
+<?php the_author_email(); ?> 显示文章作者的电子邮箱
+<?php the_author_url(); ?> 显示文章作者的网站地址
+<?php the_author_link (); ?>(添加于2.1版本) 显示一个以文章作者名为链接名，链接地址为文章作者的网址的链接。
+<?php the_author_icq(); ?> (不推荐使用) 显示文章作者的icq
+<?php the_author_aim(); ?> 显示文章作者的aim
+<?php the_author_yim(); ?> 显示文章作者的yim
+<?php the_author_msn(); ?> (不推荐使用) 显示文章作者的msn
+<?php the_author_posts(); ?> 显示文章作者已发表文章的篇数
+<?php the_author_posts_link(); ?> 显示一个链接到文章作者已发表文章列表的链接
+<?php list_authors(); ?> (不推荐使用) 显示blog所有作者和他们的相关信息。完整函数如下：
+参数：
+optioncount：是否显示各作者已发表文章的篇数，可选值为：TRUE 和 FALSE（默认值）
+exclude_admin：是否不列出管理员，可选值为：TRUE（默认值） 和 FALSE
+show_fullname ：是否显示各作者的全名，可选值为：TRUE 和 FALSE（默认值）
+hide_empty：是否不显示发表文章数为0的作者，可选值为：TRUE（默认值） 和 FALSE
+feed：链接到各个作者发表文章的RSS供稿种子链接名，默认为空，不显示RSS供稿种子
+feed_image：供稿种子的图片地址，如果提供此项，则覆盖上面的feed，默认为空
+<?php wp_list_authors(); ?> 显示blog作者列表，如果作者发表过文章，则他的名字将链接到他发表的文章列表中。可定义是否显示其他信息。
+参数：
+optioncount：是否显示各个作者发表文章数，可选值：true 和 false（默认值）
+exclude_admin：是否不显示”admin”用户，可选值：true（默认值） 和 false
+show_fullname：是否显示各个作者的全名，如果不显示，将显示昵称。可选值：true 和 false（默认值）
+hide_empty：是否不显示发表文章数为0的作者，可选值：true（默认值） 和 false
+feed：链接到各个作者发表文章的RSS供稿种子链接名，默认为空，不显示RSS供稿种子
+feed_image：供稿种子的图片地址，如果提供此项，则覆盖上面的feed，默认为空。

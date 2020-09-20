@@ -1,0 +1,82 @@
+WordPress中if函数中的有冒号是什么意思？
+
+我们经常在wordpress博客程序的模板里面看到很多奇怪的PHP语法，比如 endif;，endwhile;，endfor;，endforeach; 以及 endswitch; 等等，举个实例：
+
+<?php if(empty($GET_['a'])): ?>
+<font color=”red”>红色</font>
+<?php endif; ?>
+再比如wp主题中最常见的一条php代码
+
+<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+上面这些语法对于相当一部分PHP爱好者来说很怪异啊，这些是什么东西呢？难道是那些博客的开发者自己搞的仿PHP的模板语言？非也，其实这些都是PHP的语法，只不过不常用而已，这些都是PHP流程控制的替代语法。
+
+这里就就给大家详细说一下PHP流程控制的替代语法。
+
+什么是替代语法？
+简单的说就是一些语法的另类写法。
+
+PHP中那些语法有替代语法？
+流程控制（包括if,while,forforeach,switch）这几个语句有替代语法。
+替代语法的基本形式：
+左花括号（{）换成冒号（:），把右花括号（}）分别换成 endif;，endwhile;，endfor;，endforeach; 以及 endswitch; 举个例子吧：
+
+<?php if ($a<0): ?>
+负数
+<?php endif; ?>
+上面的语句等同于
+
+<?php if （$a<0）{ ?>
+负数
+<?php } ?>
+为什么纯PHP代码里面几乎看不到？
+这些语法有点不符合C家族的传统有点另类，大家不大习惯于这种语法，而且不是很方便
+
+大家都不习惯，而且这么另类要他有什么用？蛋疼吗？
+存在就是合理，它自有它的用处，这些语法能发挥的地方是在PHP和HTML混合页面的代码里面。好处如下：
+
+1.使HTML和PHP混合页面代码更加干净整齐。
+有代码洁癖的朋友最惧怕的就是乱七八糟的混合代码，有了这些没有花括号的替代语法，各位爱干净的朋友开心到尿震。
+2.流程控制逻辑更清晰，代码更容易阅读
+要改别人的PHP和HTML混合代码，打开发现，我擦！太TMD垃圾了！如果用替代语法，我想再垃圾的程序开发人员也不至于写的太乱吧。
+3.一些从ASP等其他类basic语言家族转来的朋友，会更容易使用PHP。
+
+讲半天没用的，捞点干的行不？这东西怎么用？
+根据之前描述的使用方法，if语句的替代语法使用如下：
+
+<?php if ($a == 5): ?>
+<div>等于5</div>
+<?php elseif ($a == 6): ?>
+<div>等于5</div>
+<?php else: ?>
+<div>不是5就是6</div>
+<?php endif; ?>
+while替代语法：
+
+<?php while (expr): ?>
+<li>循环点什么</li>
+<?php endwhile; ?>
+<pre>
+for替代语法：
+<pre>
+<?php for (expr1; expr2; expr3): ?>
+<li>循环点什么</li>
+<?php endfor; ?>
+foreach替代语法：
+循环点什么
+switch替代语法：
+
+<?php
+switch ($i):
+case 0:
+echo ”i equals 0″;
+break;
+case 1:
+echo ”i equals 1″;
+break;
+case 2:
+echo ”i equals 2″;
+break;
+default:
+echo ”i is not equal to 0, 1 or 2″;
+endswitch;
+?>

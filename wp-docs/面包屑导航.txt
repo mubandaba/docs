@@ -1,0 +1,56 @@
+之前大叔分享过一例 wordpress面包屑 的代码教程，详情可见：GO  今天再分享一款更加细化的 
+wordpress面包屑导航，教程依然很简单，往functions.php加代码，然后前端调用即可，至于样式，
+自由发挥吧。代码如下：
+
+breadcrumb
+
+    function wpmomo_breadcrumb_html($post_id,$separator){
+     $path[] = wpmomo_breadcrumb_output( home_url('/'), '首页');
+     if( get_post_type($post_id)=='post' ) {
+     $cats_id = array();
+     $categories = get_the_category($post_id);
+     if($categories){
+     foreach($categories as $category) {
+     if(!in_array($category->term_id,$cats_id)){
+     if ( $category->parent ){
+     $path[] = wpmomo_get_category_parents( $category->parent, $separator );
+     $cats_id[] = $category->parent;
+     }
+     $path[] = wpmomo_breadcrumb_output( get_category_link( $category->term_id ), 
+     $category->name);
+     $cats_id[] = $category->term_id;
+     }
+     }
+     }
+     }
+     if( is_singular() && !is_single() && !is_page() ){
+     $post_type = get_post_type();
+     $post_type_obj = get_post_type_object( $post_type );
+     $path[] = wpmomo_breadcrumb_output( get_post_type_archive_link( $post_type ), 
+     $post_type_obj->labels->singular_name);
+     }
+     $path[] = wpmomo_breadcrumb_output( get_permalink($post_id), 
+     get_the_title($post_id));
+     echo join( $separator ,$path);
+     }
+     function wpmomo_get_category_parents( $id, $separator='', $visited = array() ) {
+     $chain = '';
+     $parent = get_term( $id, 'category' );
+     if ( is_wp_error( $parent ) )
+     return $parent;
+     $name = $parent->name;
+     if ( $parent->parent && ( $parent->parent != $parent->term_id ) && !in_array( 
+     $parent->parent, $visited ) ) {
+     $visited[] = $parent->parent;
+     $chain .= wpmomo_get_category_parents( $parent->parent, $separator, $visited );
+     }
+     $chain .= wpmomo_breadcrumb_output( get_category_link( $parent->term_id ), $name);
+     return $chain;
+     }
+    function wpmomo_breadcrumb_output($url,$name){
+     return '<span">'.$name.'';
+     }
+
+代码放进去后，下面就是在你的前端位置加入调用了，代码如下：
+
+    <?php wpmomo_breadcrumb_html(get_the_ID(),'&nbsp› &nbsp'); ?>

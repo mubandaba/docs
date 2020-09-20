@@ -1,0 +1,3 @@
+将以下代码 加到 header.php的最上方就可实现Wordpress加速：
+
+<?php if (substr_count($_SERVER[‘HTTP_ACCEPT_ENCODING’], ‘gzip’)) ob_start(“ob_gzhandler”); else ob_start(); ?>

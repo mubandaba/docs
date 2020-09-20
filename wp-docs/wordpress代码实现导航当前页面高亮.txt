@@ -1,0 +1,71 @@
+以下代码来源于网络，可以实现当前页面导航高亮，进入文章也可实现当前类别高亮，但对下拉菜单无效。
+
+PS：js代码需要放在当前页，放在单独js文件内会失效。此代码不包含css样式，请根据代码自行修改…
+
+<!-- menus START -->
+<script type="text/javascript" language="javascript">
+ function gaoliangfenlei()
+ { 
+  var nav = document.getElementById("menus");    
+  var links = nav.getElementsByTagName("li");    
+  var lilen = nav.getElementsByTagName("a"); //判断地址    
+  var currenturl = document.location.href;    
+  var last = 0;    
+  for (var i=0;i<links.length;i++)    
+  {    
+   var linkurl = lilen[i].getAttribute("href");    
+   if(currenturl.indexOf(linkurl)!=-1)    
+   {    
+    last = i;    
+   }    
+  } 
+ links[last].className = "current_page_item"; //高亮代码样式
+ }
+</script> 
+<script type="text/javascript" language="javascript">
+ function gaoliangwenzhangfenlei(catname)
+ {
+  var caidan ="<?php echo $caidan ?>" ;//赋值
+  var fenleiming ="<?php echo $catname ?>" ;//赋值
+  var nav = document.getElementById("menus");    
+  var links = nav.getElementsByTagName("li");  
+  var as = nav.getElementsByTagName("a");  
+  var last = 0;    
+  for (var i=0;i<links.length;i++)    
+  {    
+   var li = links[i].innerHTML;
+   var ai=as[i].innerHTML;        
+   if(ai==catname)    
+   {    
+    last = i;
+    links[last].className = "current_page_item"; //高亮代码样式
+   } 
+  }         
+ }
+</script> 
+
+<ul id="menus"><li  <?php if (is_home()) { echo ' class="current_page_item"';} ?> ><a class="home " href="/">首页</a></li>
+<?php 
+$caidan=wp_nav_menu(array('theme_location' => 'header-menu','container' => 'false','echo' => false,'items_wrap'=> '%3$s', ) ); 
+$catname = '';
+if(!is_page() && !is_home()) {
+    $cat = get_the_category();
+    $catid = $cat[0]->cat_ID;
+    $catname = $cat[0]->cat_name;
+ if(is_category() ){
+     echo $caidan;
+     echo "<script type='text/javascript' language='javascript'>gaoliangfenlei()</script>";
+ }
+ else{
+  echo $caidan;
+  echo "<script type='text/javascript' language='javascript'>gaoliangwenzhangfenlei('$catname')</script>";
+ }
+}
+else{
+ echo $caidan;
+}
+?>
+</ul>
+
+ <!-- menus END -->
+

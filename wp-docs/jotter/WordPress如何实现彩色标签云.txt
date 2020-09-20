@@ -1,0 +1,74 @@
+今天SJY带领大家，纯代码实现wordpress彩色标签云，效果怎样，看看SJY之家首页右侧的标签云就
+知道了。先来告诉大家如何调用标签云？比较简便的是进入后台，外观—>小工具 把标签云小工具拖
+动到右侧即可；你也可以直接在需要调用标签云的模板中加入代码
+
+<?php wp_tag_cloud(); ?>
+
+实现wordpress彩色标签云
+
+打开 functions.php 文件，插入以下代码
+
+//彩色标签云
+function colorCloud($text) {
+$text = preg_replace_callback("|<a (.+?)>|i", "colorCloudCallback", $text);
+return $text;
+}
+function colorCloudCallback($matches) {
+$text = $matches[1];
+$color = dechex(rand(0,16777215));
+$pattern = "/style=(\"|\")(.*)(\"|\")/i";
+$text = preg_replace($pattern, "style=\"color:#{$color};$2;\"", $text);
+return "<a $text>";
+}
+add_filter("wp_tag_cloud", "colorCloud", 1);
+
+上面红色部分的代码 ?$color = dechex(rand(0,16777215));用来定义标签随机颜色的十进制数值范
+围,0 等于 #000000,16777215 等于 #ffffff,建议重定义下，随机的颜色有可能跟你的网页背景色相
+同，会让用户看不清是什么字。在photoshop中定位好颜色范围后，使用系统自带的计算机即可把16
+进制转换成十进制数。
+修改标签云字体大小,排序顺序,显示数量
+
+先找到用来控制显示标云的函数 wp_tag_cloud() ，打开wp-includes\category-template.php?搜索 
+wp_tag_cloud,找到下列代码
+
+function wp_tag_cloud( $args = "" ) {
+$defaults = array(
+"smallest" => 8, "largest" => 22, "unit" => "pt", "number" => 45,
+"format" => "flat", "separator" => "\n", "orderby" => "name", "order" => "ASC",
+"exclude" => "", "include" => "", "link" => "view", "taxonomy" => "post_tag", "echo" => 
+true
+);
+
+参数解释
+
+    smallest:设置标签云中显示的所有标签中,计数最少(最少文章使用)的标签字体大小,默认值为 
+    8pt 。
+    largest:设置标签云的所有标签中,计数最多(最多文章使用)的标签的字体大小,默认值为22pt。
+    unit:标签文字字号的单位,默认为pt,可以为px、em、pt、百分比等;
+    number:设置标签云中显示的最多标签数量,默认值为45个,设置为”0″则调用所有标签;
+    format:调用标签的格式,可选”flat”、”list”和”array”,默认为”flat”平铺,”list”为列表方式;
+    separator:(字符串)(可选)标签之间的文本/空格。默认值:’/n’ (空格);
+    orderby:设置标签云中标签的排序方式,默认值为”name”按名称排序。如果设置成”count”则按关
+    联的文章数量排列;
+    order:排序方式,默认为”ASC”按正序,”DESC”按倒序,”RAND”按任意顺序;
+    exclude:排除部分标签,输入标签ID,并以逗号分隔,如”exclude=1,3,5,7″不显示ID为1、3、5、7
+    的标签;
+    include:包含标签,与exclude用法一样,作用相反,如”include=2,4,6,8″则只显示ID为2、4、6、
+    8的标签;
+    link:(字符串)(可选)设置链接,允许编辑某个指定标签。有效值包括:’view’ (默认值)、 
+    ‘edit’ ;
+    taxonomy:(字符串)(可选)用以生成云的分类法。’post_tag’将文章标签当作云的来源(默认值) 
+    、’category’ 用文章分类生成云 、’link_category’用链接分类目录生成云;
+    echo:(布尔型)(可选)显示结果,或将结果保留在变量中。默认值为true(显示标签云)。有效值包
+    括:1 (true) 默认值 、0 (false) 。
+
+一般要改的代码就是以下2行，标签的大小和排序方式，其他一般保持默认即可。
+
+"smallest" => 8, "largest" => 22, "unit" => "pt", "number" => 45,
+"format" => "flat", "separator" => "\n", "orderby" => "name", "order" => "ASC",
+
+也可以直接在模板中输入以下代码，来调整标签云的大小和显示数量
+
+<?php wp_tag_cloud("smallest=10&largest=14&number=80"); ?>
+
+欢迎转载，但请保留原文地址 http://www.sjyhome.com/wordpress/wp-color-tag-cloud.html

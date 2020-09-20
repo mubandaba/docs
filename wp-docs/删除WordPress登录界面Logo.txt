@@ -1,0 +1,10 @@
+若想让后台登陆界面变得更加简洁，可以尝试着只留下输入框。在主题目录functions.php中加入以下代码：
+
+function admin_bar_remove() {
+        global $wp_admin_bar;
+ 
+        /* Remove their stuff */
+        $wp_admin_bar->remove_menu('wp-logo');
+}
+ 
+add_action('wp_before_admin_bar_render', 'admin_bar_remove', 0);

@@ -1,0 +1,7 @@
+下面介绍几个 WordPress 主题在线检测工具，打开这些工具，然后直接输入你想检测站点的域名地址
+，工具便开始检测站点的主题信息：
+http://wpthemedetector.coderschool.cn/
+http://www.wpthemedetector.com/
+whatwpthemeisthat.com
+http://whattheme.com/
+builtwith.com

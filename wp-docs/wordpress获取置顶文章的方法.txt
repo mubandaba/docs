@@ -1,0 +1,36 @@
+wordpress获取置顶文章的方法
+有的时候我们会在特殊位置显示一些网站的置顶文章，那么我们需要如何操作呢？
+
+首先设置几篇文章为置顶文章，这里要说明的是，设置置顶文章不需要在文章编辑页面，而是文章的快速编辑里有置顶按钮
+
+然后，在需要显示置顶文章的地方，插入下面的代码，即可调用wordpress获取指定文章的方法
+
+<ul>   
+            <?php $sticky = get_option('sticky_posts'); rsort( $sticky );  
+                    $sticky = array_slice( $sticky, 0, 2);query_posts( array( 'post__in' => $sticky, 'caller_get_posts' => 1 ) );   
+                if (have_posts()) :while (have_posts()) : the_post();       
+            ?>   
+            <li><a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>" rel="bookmark"><?php the_title(); ?></a></li>   
+            <?php endwhile; endif; ?>   
+        </ul>  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

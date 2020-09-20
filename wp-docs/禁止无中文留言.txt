@@ -1,0 +1,12 @@
+// 禁止无中文留言
+if ( is_user_logged_in() ) {
+} else {
+function refused_spam_comments( $comment_data ) {
+	$pattern = '/[一-龥]/u';
+	if(!preg_match($pattern,$comment_data['comment_content'])) {
+		err('评论必须含中文！');
+	}
+	return( $comment_data );
+}
+add_filter('preprocess_comment','refused_spam_comments');
+}

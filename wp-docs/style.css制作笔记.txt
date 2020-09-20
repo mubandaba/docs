@@ -1,0 +1,10 @@
+定义模版style.css文件的描述.
+
+/*
+Theme Name:模版的名字
+Theme URI:模版的地址
+Description:模板的表述
+Author:作者名字
+Author URI:作者链接地址
+Tags:描述模版的关键字
+*/

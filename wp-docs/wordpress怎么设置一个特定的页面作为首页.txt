@@ -1,0 +1,5 @@
+首先在“页面”里新建一个页面，比如标题为“welcome”;
+然后在设置里找到“阅读”，首页显示调整为“一个静态页面”，并在下拉列表里选择welcome
+保存就可以了
+
+https://zhidao.baidu.com/question/532956730.html

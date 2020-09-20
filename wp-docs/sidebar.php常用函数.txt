@@ -1,0 +1,11 @@
+其它的一些Wordpress模板代码
+/%postname%/ 显示博客的自定义永久链接
+<?php the_search_query(); ?> 搜索表单的值
+<?php _e(’Message’); ?> 打印输出信息
+<?php wp_register(); ?> 显示注册链接
+<?php wp_loginout(); ?> 显示登入/登出链接
+<!–next page–> 在日志或页面中插入分页
+<!–more–> 截断日志
+<?php wp_meta(); ?> 显示管理员的相关控制信息
+<?php timer_stop(1); ?> 显示载入页面的时间
+<?php echo get_num_queries(); ?> 显示载入页面查询

@@ -1,0 +1,10 @@
+样式化不同分类
+如果你想给特定分类规定不同的样式表，你所需做的只是在header.php 文件的标签中加入
+以下代码：
+<?php if ( is_category('15') ) { ?>
+<link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/cat-15.css"
+type="text/css" media="screen" />;
+<?php } else { ?>
+<link rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>" type="text/css"
+media="screen" />
+<?php } ?>

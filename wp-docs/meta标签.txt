@@ -1,0 +1,33 @@
+meta站点字符编码:<meta charset='utf-8'>
+
+meta禁止浏览器缓存:<meta http-equiv="Pragma" contect="no-cache" />
+
+meta站点描述:<meta name="description" content="不超过150个字符" />
+
+meta站点关键字:<meta name="keywords" content="不超过200个字符" />
+
+
+https://www.zhihu.com/question/27565755
+html页面如何真正彻底的禁止缓存呢？
+在开发中经常有需求需要禁止HTML的缓存，如网上所说在head标签里加入如下代码：
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+但是实际使用中却发现即使这样设置了，却还是在首次加载时仍然是旧的页面，再次刷新才能更新到最新的。这样往往就达不想要的效果。请问有没有真正彻底的方法呢？
+====================================================================
+<meta http-equiv="pragram" content="no-cache">
+禁止浏览器从本地缓存中调阅页面。
+网页不保存在缓存中，每次访问都刷新页面。
+<meta http-equiv="cache-control" content="no-cache, must-revalidate">
+同上面意思差不多，必须重新加载页面
+<meta http-equiv="expires" content="0">
+网页在缓存中的过期时间为0，一旦网页过期，必须从服务器上重新订阅。
+
+禁止页面缓存的几种方法:http://blog.csdn.net/binggoogle/article/details/50388026
+
+
+
+
+
+
+

@@ -1,0 +1,18 @@
+rss阅读在国内的应用实际上不多，因此你完全可以禁用这个功能，禁用之后也就无法通过rss被采集数据了。
+
+将如下代码加入进入主题的function.php（WEB主题公园用户加入到function/function_z.php或者widget.php均可）：
+
+ 
+
+unction themepark_disable_feed() {
+wp_die(__('<h1>rss已经禁用，请直接访问<a href="'.get_bloginfo('url').'">'.get_bloginfo('name').'</a>！</h1>'));
+}
+add_action('do_feed', 'themepark_disable_feed', 1);
+add_action('do_feed_rdf', 'themepark_disable_feed', 1);
+add_action('do_feed_rss', 'themepark_disable_feed', 1);
+add_action('do_feed_rss2', 'themepark_disable_feed', 1);
+add_action('do_feed_atom', 'themepark_disable_feed', 1);
+
+ 
+
+这样，如果访问你的rss 源，会提示上面的文字，而不会显示任何内容了。

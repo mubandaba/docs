@@ -1,0 +1,29 @@
+在别人复制您博客内容的时候，在内容最后自动添加上当前页面的链接及标题名称，
+
+在当前主题目录下的functions.php文件内最后的?>前面添加下面代码即可
+	
+//添加原文版权地址
+function staryue_copyright() { ?>
+<script type='text/javascript'>
+function addLink() {
+var body_element = document.getElementsByTagName('body')[0];
+var selection;
+selection = window.getSelection();
+var pagelink = "<br /><br /> 原文信息: <?php if(is_single()){ the_title();}?><br />原文链接：<a href='"+document.location.href+"'>"+document.location.href+"</a>";
+var copy_text = selection + pagelink;
+var new_div = document.createElement('div');
+new_div.style.left='-99999px';
+new_div.style.position='absolute';
+body_element.appendChild(new_div );
+new_div.innerHTML = copy_text ;
+selection.selectAllChildren(new_div );
+window.setTimeout(function() {
+body_element.removeChild(new_div );
+},0);
+}
+document.oncopy = addLink;
+</script>
+ 
+<?php
+}
+add_action( 'wp_head', 'staryue_copyright');

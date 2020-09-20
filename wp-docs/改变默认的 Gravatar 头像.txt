@@ -1,0 +1,7 @@
+WordPress程序默认的 Gravatar 头像很不咋地，而且到处都是千篇一律的默认头像一点都无法体现独特性。你可以把以下代码添加到functions.php文件里面，然后记得把自定义的Gravatar 头像上传到WordPress模板的images文件夹。
+add_filter( 'avatar_defaults', 'newgravatar' );
+function newgravatar ($avatar_defaults) {
+$myavatar = get_bloginfo('template_directory') . '/images/gravatar.gif';
+$avatar_defaults[$myavatar] = "WPBeginner";
+return $avatar_defaults;
+}

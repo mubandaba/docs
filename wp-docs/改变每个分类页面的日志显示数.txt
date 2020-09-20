@@ -1,0 +1,8 @@
+改变每个分类页面的日志显示数. （成功）
+你将需要打开category.php 文件并且找到下面的这行,
+在<?php if (have_posts()) : ?>
+下面添加内容：
+<?php if (is_category('1')) {$posts = query_posts ($query_string.'&showposts=1'); } ?>
+<?php if (is_category('16')) {$posts = query_posts($query_string.'&showposts=2'); } ?>
+“is_category()”就是分类ID，比如可以写成”is_category(’5)”, “showposts=4 里面的数值就
+是你要显示的分类日志数。

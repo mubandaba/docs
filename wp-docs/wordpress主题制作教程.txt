@@ -1,0 +1,15 @@
+https://www.xuewangzhan.com/jz/wpmoban/
+课程目录
+WP模板分析：wordpress模板包含哪些模板文件(18471 次学习)
+如何将静态的html模板转换为wordpress主题(17979 次学习)
+wordpress头部模板(header.php)制作(17678 次学习)
+wordpress底部模板(footer.php)制作(19244 次学习)
+wordpress侧边栏模板(sidebar.php)制作(18008 次学习)
+wordpress首页模板(index.php)制作(18228 次学习)
+wordpress分类目录模板(archive.php)制作(112738 次学习)
+wordpress文章模板(single.php)制作(19859 次学习)
+wordpress页面模板(page.php)制作(18464 次学习)
+wordpress搜索功能(search.php)模板制作(112614 次学习)
+wordpress评论功能模板(comment.php)制作(117789 次学习)
+wordpress标签模板(tag.php)制作(18819 次学习)
+wordpress错误页面模板(404.php)制作

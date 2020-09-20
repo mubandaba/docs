@@ -1,0 +1,66 @@
+WordPress 通过 wp_head() 在页面的头部输出了很多东西，但是这些标签很多是没用的，虽然这些
+代码也没有什么副作用，但是个人更喜欢保持一个简洁的 header。所以这篇日志将教你如何移除 
+header 中的下面几个标签，你可以根据自己的需求选择移除：
+
+Really Simple Discovery (RSD) link
+Windows Live Writer link
+WordPress generator 信息
+和日志相关的 Link
+Really Simple Discovery
+
+输出代码如下：
+
+<link rel="EditURI" type="application/rsd+xml" title="RSD" 
+href="http://example.com/xmlrpc.php?rsd" />
+这是 XML-RPC 客户端发现机制需要用到的，如果你不知道这个是什么意思，或者没有集成类似 
+Flickr 这类服务到你的站点，那么你可以安全的移除它：
+
+remove_action('wp_head', 'rsd_link');
+Windows Live Writer
+
+输出代码如下：
+
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" 
+href="http://example.com/wp-includes/wlwmanifest.xml" />
+如果你没有使用 Windows Live Writer 来写日志，那就移除它吧：
+
+remove_action('wp_head', 'wlwmanifest_link');
+WordPress Generator
+
+它是用来在 header 显示你的 WordPress 版本号：
+
+<meta name="generator" content="WordPress 3.5.1" />
+你自己当然知道你所使用的 WordPress 版本了，并且给坏人知道，还能造成安全漏洞：
+
+remove_action('wp_head', 'wp_generator');
+和日志相关的 Link
+
+Post relational links（和日志相关的 Link）即使下面这一堆：
+
+
+<link rel='index' title='Main Page' href='http://blog.wpjam.com' />
+<link rel='start' title='Article in the distant past' 
+href='http://blog.wpjam.com/hello-world/' />
+<link rel='prev' title='The Post Before This One' 
+href='http://blog.wpjam.com/post-before/' />
+<link rel='next' title='The Post After This One' 
+href='http://blog.wpjam.com/post-after/' />
+一些浏览器可以通过这些代码进行导航，但是一个设计优秀的主题同样可以做到，所以移除它们：
+
+
+remove_action('wp_head', 'start_post_rel_link');
+remove_action('wp_head', 'index_rel_link');
+remove_action('wp_head', 'adjacent_posts_rel_link');
+
+
+汇总一次，将上面所有代码都复制到 functions.php 就能一次性移除了。
+
+
+<?php
+remove_action('wp_head', 'rsd_link');
+remove_action('wp_head', 'wlwmanifest_link');
+remove_action('wp_head', 'wp_generator');
+remove_action('wp_head', 'start_post_rel_link');
+remove_action('wp_head', 'index_rel_link');
+remove_action('wp_head', 'adjacent_posts_rel_link');
+?>

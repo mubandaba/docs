@@ -1,0 +1,32 @@
+http://willless.com/add-custom-field-add_comment_meta-to-wordpress-comments.html
+
+1.简介
+评论添加自定义字段
+
+2.用法
+
+<?php add_comment_meta( $comment_id, $meta_key, $meta_value, $unique ); ?>
+3.实例
+Add a custom posted value to every new comment
+
+<?php
+function add_custom_comment_field( $comment_id ) {
+    add_comment_meta( $comment_id, 'my_custom_comment_field', $_POST['my_custom_comment_field'] );
+}
+add_action( 'comment_post', 'add_custom_comment_field' );
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

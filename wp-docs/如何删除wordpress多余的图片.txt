@@ -1,0 +1,16 @@
+需要这么多种尺寸的拷贝？
+追答
+add_action( 'after_setup_theme', 'remove_thumbail' );
+function remove_thumbail() {
+     //remove_image_size( 'thumbnail' ); //删除默认略图
+
+    remove_image_size( 'medium' ); //删除默认中幅缩略图
+}
+
+//你把上面的代码放到主题的functions.php里试试吧。空间使用过快有可能是日志的原因，或者缓存的缘故，你可以检查一下。
+追问
+谢谢您的回复。
+
+但这只能删除之后发布博文的照片，那之前的照片怎么删除？
+
+我的理解是原照片(假设为example.png)和example_thumb.png，这两个不能删除，其他的都可以删，我的理解对了吗？

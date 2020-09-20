@@ -1,0 +1,171 @@
+1. wordpress模板结构分析
+索引页模版：index.php
+顶部：header.php
+文章页面模板：single.php
+边栏模板：sidebar.php
+底部：footer.php
+页面模版：page.php
+搜索结果：search.php
+文章归档：archive.php
+评论：comments.php
+404 页面模版：404.php
+主题支持函数：functions.php
+样式表：style.css
+
+2. 制作一个可以运行的wordpress主题，修改style.css
+制作一个最简单的主题，只需要两个文件，index.php和style.css
+
+第一步，准备静态页面
+第二步，制作index.php和style.css
+第三步，给style.css添加版权信息
+第四步：把主题上传到空间中wordpress安装路径，wp-content/themes/下面，这里主题的文件夹名
+字必须是英文
+第五步，在wordpress后台启用主题
+
+先给style.css添加版权信息
+/*
+Theme Name: wordpress theme 01
+Theme URI: http://www.wpbaike.com
+Description: a simple bolg theme
+Author: xixi
+Author URI: http://www.wpbaike.com
+Version: 1.0
+Tags: white, blog, liweihui, blue
+*/
+
+Style.css路径调用：<?php bloginfo( 'stylesheet_url' ); ?>
+主题缩略图名字：screenshot.png
+
+3. 制作出主题结构，index.php，header.php，footer.php，sidebar.php
+把index.php拆分成header.php，footer.php和sidebar.phhp
+<?php get_header();?>
+<?php get_footer();?>
+<?php get_sidebar();?>
+
+4. 修改header.php，footer.php
+获取博客名字：<?php bloginfo('name'); ?>
+获取博客描述：<?php bloginfo('description'); ?>
+获取主页路径：<?php echo get_option('home'); ?>
+获取主题存放路径：<?php bloginfo('template_directory'); ?>
+<meta http-equiv="Content-Type" content="text/html; charset=<?php bloginfo( 'charset' 
+); ?>" />
+<?php wp_head(); ?>
+<title><?php if (is_home()||is_search()) { bloginfo('name'); } else { wp_title(''); 
+print " - "; bloginfo('name'); } ?> </title>
+
+页面调用：
+<?php wp_list_pages('sort_column=menu_order&title_li=&depth=2&include='); ?>
+分类目录调用:
+<?php wp_list_categories('title_li=0&orderby=name&show_count=0&depth=2'); ?>
+
+5. 制作sidebar.php
+最新文章：<?php wp_get_archives('type=postbypost&limit=20'); ?>
+
+<?php $rand_posts = get_posts('numberposts=10&orderby=date');foreach($rand_posts as 
+$post) : ?>
+    <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
+<?php endforeach;?>
+
+日志标题太长超出，修改style.css，用到的代码：
+text-overflow:ellipsis; white-space:nowrap; overflow:hidden;
+随机文章：
+<?php $rand_posts = get_posts('numberposts=10&orderby=rand');foreach($rand_posts as 
+$post) : ?>
+    <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
+<?php endforeach;?>
+
+热门文章：
+<?php
+$post_num = 10; // 设置调用条数
+$args = array(
+      'post_password' => '',
+          'post_status' => 'publish', // 只选公开的文章.
+          'post__not_in' => array($post->ID),//排除当前文章
+          'caller_get_posts' => 1, // 排除置頂文章.
+          'orderby' => 'comment_count', // 依評論數排序.
+          'posts_per_page' => $post_num
+);
+        $query_posts = new WP_Query();
+        $query_posts->query($args);
+        while( $query_posts->have_posts() ) { $query_posts->the_post(); ?>
+         <li><a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
+<?php the_title(); ?></a></li>
+<?php } wp_reset_query();?>
+
+标签云：
+<?php wp_tag_cloud('smallest=8&largest=36&'); ?>
+文章日期归档：
+<?php wp_get_archives( 'type=monthly' ); ?>
+分类目录：
+<?php wp_list_cats('sort_column=name&optioncount=1&hierarchical=0'); ?>
+友情链接：
+<?php wp_list_bookmarks('title_li=&categorize=0&orderby=rand&limit=24'); ?>
+
+6. 制作index.php，
+<?php if (have_posts()) : ?>
+<?php while (have_posts()) : the_post(); ?>
+
+<?php endwhile; ?>
+<?php else : ?>
+<?php endif; ?>
+
+标题：<a href="<?php the_permalink() ?>"><?php the_title_attribute(); ?></a>
+
+调用文章内容：
+<?php the_content("Read More..."); ?>
+调用文章内容摘要：
+<?php the_excerpt("Read More..."); ?>
+
+作者：<?php the_author_posts_link(); ?>
+日期：<?php the_time('F d, Y') ?>
+<?php the_time('m-d') ?>
+<?php the_date_xml()?>
+评论调用：<?php comments_number('No Comment', '1 Comment', '% Comments' );?>
+文章所属分类：标签：<?php the_category(', ') ?>
+上一页，下一页调用：
+<div style="float:left"><?php previous_post_link('&laquo; %link'); ?></div>
+<div style="float:right"><?php next_post_link('%link &raquo;'); ?></div>
+
+7. 制作single.php页面，加入评论
+在single.php中调用<?php endwhile; ?>和<?php else : ?>中间让入
+<?php comments_template(); ?>
+
+8. 制作page.php，archive.php，404.php
+Page.php和single.php一样
+archive.php和index.php一样
+
+9. 制作小工具
+添加functions.php，
+<?php
+if ( function_exists('register_sidebar') )
+    register_sidebar(array(
+        'before_widget' => '<div class="sidebox">	',
+        'after_widget' => '</div>',
+        'before_title' => '<h2>',
+        'after_title' => '</h2>',
+    ));
+?>
+
+
+在sidebar.php中模块最上面插入：
+		   <?php if ( !function_exists('dynamic_sidebar')
+        || !dynamic_sidebar() ) : ?>
+Sidebar最下面，添加<?php endif; ?>
+
+10. 细节问题处理
+
+上一页，下一页调用：
+<?php previous_posts_link('<span class="next">&laquo;上一页 </span>') ?><?php 
+next_posts_link('<span class="previous">下一页&raquo; </span>') ?>
+
+头部修改：
+<meta http-equiv="Content-Type" content="text/html; charset=<?php bloginfo( 'charset' 
+); ?>" />
+<?php wp_head(); ?>
+
+Title调用改成下面这句：
+<title><?php if (is_home()||is_search()) { bloginfo('name'); } else { wp_title(''); 
+print " - "; bloginfo('name'); } ?> </title>
+
+首页文章只显示摘要<?php the_excerpt("Read More..."); ?>
+这里需要用到中文工具箱插件

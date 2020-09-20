@@ -1,0 +1,33 @@
+wordpress修改多媒体默认上传附件限制大小失败（已尝试修改php.ini和.htaccess）
+
+现在的症状是：附件显示可以上传300M文件，点击上传后，上传到40%左右就重新上传，知道报错“HTTP错误”！
+
+1.已经修改完php.ini,修改内容如下：
+upload_max_filesize = 300M 
+post_max_size = 300M 
+max_execution_time = 300 
+max_input_time = 300
+也重启了Apache
+
+2. 修改了.htaccess内容如下：
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+
+RewriteCond %{REQUEST_FILENAME} !-d
+
+php_value upload_max_filesize 300M
+
+
+php_value post_max_size 300M
+
+
+php_value max_execution_time 300
+
+
+php_value max_input_time 300
+</IfModule>
+
+烦请高手帮忙解决，谢谢！
