@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="<?php bloginfo('html_type'); ?>; charset=<?php bloginfo('charset'); ?>" /><title><?php bloginfo('name'); ?> <?php if ( is_single() ) { ?> ? Blog Archive <?php } ?> <?php wp_title(); ?></title><meta name="generator" content="WordPress <?php bloginfo('version'); ?>" /> 
+<!– leave this for stats –>
+<link rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>" type="text/css" media="all" />
+<link rel="stylesheet" href="<?php bloginfo('stylesheet_directory'); ?>/print.css" type="text/css" media="print" />
+<link rel="alternate" type="application/rss+xml" title="<?php bloginfo('name'); ?> RSS Feed" href="<?php bloginfo('rss2_url'); ?>" />
+<link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" /><?php wp_head(); ?>
+</head>
+<body>
+<div id="page"><?php get_header(); ?> <!– content –>
+<div id="content">
+<?php if (have_posts()) : ?>
+<?php while (have_posts()) : the_post(); ?> <div class="post" id="post-<?php the_ID() ?>">
+<!– 博文标题及链接 –>
+<h2><a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title(); ?>">
+<?php the_title(); ?></a></h2>
+<!– 发表日期 –>
+<div class="post-date">
+<span class="post-month"><?php the_time('M') ?></span>
+<span class="post-day"><?php the_time('d') ?></span>
+</div>
+<!– 作者 –>
+<span class="post-author"><?php _e('Author'); ?>：<?php the_author() ?></span>
+<!– 类别 –>
+<span class="post-cat">分类：<?php the_category() ?></span>
+<!– 注释 –>
+<!– 内容 –>
+<div class="entry">
+<?php the_content(); ?>
+</div>
+<!– 其他元（Meta）数据 –>
+<div class="post-meta">
+<?php edit_post_link(); ?>
+</div> </div>
+<?php endwhile; ?> <div class="navigation">
+<span class="previous-entries"><?php next_posts_link() ?></span> <span class="next-entries"><?php previous_posts_link() ?></span>
+</div>
+<?php else : ?>
+<div class="post">
+<h2>没文章</h2>
+</div><?php endif; ?>
+</div><!– end content –><?php get_sidebar(); ?> <?php get_footer(); ?></div>
+</body>
+</html>

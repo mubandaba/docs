@@ -1,0 +1,46 @@
+导读：这篇文章主要介绍侧边栏的常规显示项，后期补充扩展部分将介绍如何开发侧边栏广告插件。侧边栏常规显示内容包括：分类链接列表、页面链接列表、存档和链接列表、搜索框和日历、标签云以及窗体后侧边栏。
+
+获取分类目录：
+wp_list_categories('hide_empty=0&depth=1&show_count=1&title_li=<h2>Categories</h2>'); 
+详细介绍：官方文档
+最新文章列表：
+标题显示：<?php _e('Recent Posts'); ?>
+列表显示：wp_get_archives('type=postbypost&limit=5');
+详细介绍：官方网站
+获取存档：
+存档列表：wp_get_archives('type=monthly');
+wp_get_archives（）函数和最新文章的函数是一样的，调整参数即可。
+获取日历：
+get_calendar()
+
+获取搜索框：
+<?php include(TEMPLATEPATH . ‘/searchform.php’); ?>
+注意：TEMPLATEPATH - 主题文件夹的位置，这里是：wp-content/themes/tutorial
+获取友情链接：
+详情请参考footer.php的讲解
+标签云：
+wp_tag_cloud('largest=16&format=flat&number=20');
+详细请见：官方网站
+另外meta部分：
+注册按钮：<?php wp_register(); ?>
+退出：<?php wp_loginout(); ?>
+
+窗体化侧边栏widgetized
+窗体化侧边栏就是能够通过拖拉就能够整理侧边栏的模块。比如我们需要更改分类和存档的位置，只需要简单把分类和存档列表拖到它们的位置即可，根本不用去修改侧边栏的代码。
+第一步：修改function.php,如果没有这个文件就新创建一个，它是非常有用的。
+加入如下代码：
+<?php
+if ( function_exists('register_sidebar') ) {
+	register_sidebar(array(
+        'before_widget' => '<li id="%1$s" class="widget %2$s">',
+        'after_widget' => '</li>',
+        'before_title' => '<h2 class="widgettitle">',
+        'after_title' => '</h2>',
+    ));
+}
+?>
+第二步：在sidebar.php中需要的位置加入：
+<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar() ) : ?>
+在结尾处加入:
+<?php endif; ?>
+那么你在后台->外观->小工具中对侧边栏重新拖动设定之后前台的侧边栏（第二步中二句代码中间的部分将不再显示）将按照你拖动的来显示。

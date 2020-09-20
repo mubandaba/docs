@@ -1,0 +1,24 @@
+WordPress基本模板文件
+
+一套完整的WordPress模板应至少具有如下文件：
+style.css: CSS(样式表)文件
+index.php : 主页模板
+archive.php : Archive/Category模板
+404.php : Not Found 错误页模板
+comments.php : 留言/回复模板
+footer.php : Footer模板
+header.php : Header模板
+sidebar.php : 侧栏模板
+page.php : 内容页(Page)模板
+single.php : 内容页(Post)模板
+searchform.php : 搜索表单模板
+search.php : 搜索结果模板
+当然，具体到特定的某款模板，可能不止这些文件，但一般而言，这些文件是每套模板所必备的。
+
+
+
+
+
+
+
+

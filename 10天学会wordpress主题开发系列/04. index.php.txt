@@ -1,0 +1,56 @@
+导读:此页面为站点主页，应该根据站点特点和需要规划此页面的内容。页面一般分为4部分：头部(header.php title=’如何新建或修改header.php’ href=’’); 尾部(footer.php title=’如何新建或修改footer.php’ href=’’); 边栏(sidebar.php title=’如何新建或修改sidebar.php’ href=’’);
+调用其他3个组件部分代码：
+<?php get_header(); ?> ?php get_sidebars(); ?> <?php get_footer(); ?> 
+<?php get_search_form(); ?>
+现在着重讲解主页文章显示列表：
+1）文章标题显示：
+<h3 class="title"><a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a></h3>
+其中：the_title_attribute（） 和 the_title（）有重复之处，有些模板中也会使用the_title_attribute（）来代替the_title()
+The_title()方法详见：http://codex.wordpress.org/Template_Tags/the_title
+2）文章标签显示
+为文章加入标签，利用seo的优化，并且方便用户对感兴趣的关键词文章的分类查看。
+<?php the_tags('标签：', ', ', ''); ?>
+详细方法详见：http://codex.wordpress.org/Template_Tags/the_tags 
+3）显示评论数
+如果使用comments_popup_script(width,height,file)会弹出一个评论窗口，使用
+<?php comments_popup_link('zero','one','more','CSSclass','none');?>则会显示正常的链接。
+详细请见：http://codex.wordpress.org/Template_Tags/comments_popup_link
+4）显示日期
+<?php the_time('Y年n月j日') ?>
+详情：http://codex.wordpress.org/zh-cn:自定义时间和日期
+5）添加文章内容或文章摘要
+根据情况和需要有选择的使用这2个功能：the_excerpt();和the_content();
+the_excerpt()是显示的文章摘要，the_content()为文章全文。
+文章摘要：http://codex.wordpress.org/Function_Reference/the_excerpt
+6）输出文章列表
+输出文章列表需了解the loop,(详解：http://codex.wordpress.org/The_Loop)
+The loop开始是这样的：
+<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+结束：
+<?php endwhile; else: ?>
+<p><?php _e('Sorry, no posts matched your criteria.'); ?></p>
+<?php endif; ?>
+下面提供一个较为完整点的例子：
+<!-- Start the Loop. -->
+ <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+
+ <!--单个文章的结构（如标题，内容或摘要，评论等等以及div+css） -->
+ 
+ <?php endwhile; else: ?>
+
+<!—如果没有内容显示如下内容 -->
+ <p>对不起，没有文章显示</p>
+
+ <!—loop结束 -->
+ <?php endif; ?>
+7）分页实现
+简单的上一页下一页非常容易实现，代码示范如下：
+上一页previous_posts_link('&lt;&lt; 查看新文章', 0); ?> 
+下一页<?php next_posts_link('下一页 »', 0); ?>
+如果想要更为复杂美观的分页代码，将在后续文章单独介绍，届时会给出链接。
+8）文章缩略图实现
+文章缩略图是6中每篇文章显示的时候显示一个此文章中的图片中的缩略图，简单代码如下：
+<img class="thumb" alt="" src="<?php bloginfo('template_url'); ?>/images/higo8.com.gif" />
+
+第4天的学习到这里基本上就结束了，不知道你理解了多少呢，有问题就给我回复吧。
+注解Archive.php和index.php的内容基本一样。

@@ -1,0 +1,3 @@
+在模版文件functions.php下添加如下代码开启友情链接:
+
+add_filter('pre_option_link_manager_enabled','__return_true');

@@ -1,0 +1,4 @@
+从WordPress2.9版本开始，可以给模板添加文章缩略图功能。操作方法很简单，只需要把下面的代码添加到functions.php里面。
+add_theme_support( 'post-thumbnails' );
+然后在要显示缩略图的地方放置下面的代码即可。
+<?php the_post_thumbnail(); ?>

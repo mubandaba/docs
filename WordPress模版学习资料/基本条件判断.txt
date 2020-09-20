@@ -1,0 +1,16 @@
+基本条件判断
+
+is_home() : 是否为主页
+is_single() : 是否为内容页(Post)
+is_page() : 是否为内容页(Page)
+is_category() : 是否为Category/Archive页
+is_tag() : 是否为Tag存档页
+is_date() : 是否为指定日期存档页
+is_year() : 是否为指定年份存档页
+is_month() : 是否为指定月份存档页
+is_day() : 是否为指定日存档页
+is_time() : 是否为指定时间存档页
+is_archive() : 是否为存档页
+is_search() : 是否为搜索结果页
+is_404() : 是否为 “HTTP 404: Not Found” 错误页
+is_paged() : 主页/Category/Archive页是否以多页显示

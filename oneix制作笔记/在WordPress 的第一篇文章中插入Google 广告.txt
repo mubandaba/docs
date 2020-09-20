@@ -1,0 +1,10 @@
+在WordPress 的第一篇文章中插入Google 广告（成功）
+
+<?php while ( have_posts() ): the_post(); $count++;?>
+<?php if ($count == 1) : ?>
+// Insert your Google AdSense code here
+<?php endif; ?>
+<?php endwhile; ?>
+
+你同样可以改变count 值来让广告比如放在不同的日志后面，比如改成count == 2, 则把
+Google 广告显示在第二篇日志后面.

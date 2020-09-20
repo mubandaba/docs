@@ -1,0 +1,25 @@
+1. 在functions.php添加:
+
+/**添加侧边栏**/
+function oneix_widgets_init() {
+  register_sidebar( array(
+        'name'          => __( '侧边栏', 'oneix' ),
+        'id'            => 'sidebar-1',
+        'description'   => __( '', 'oneix' ),
+        'before_widget' => '<div class="%1$s" class="widget %2$s">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h1 class="widget-title">',
+        'after_title'   => '</h1>',
+    ) );
+}
+add_action( 'widgets_init', 'oneix_widgets_init' );
+/**添加侧边栏结束**/
+
+在sidebar.php中的:
+<div id="sidebar">
+    <ul>	
+		<?php if ( function_exists('dynamic_sidebar') && dynamic_sidebar() ) : else : ?>
+
+		<?php endif; ?>
+    </ul>
+</div>

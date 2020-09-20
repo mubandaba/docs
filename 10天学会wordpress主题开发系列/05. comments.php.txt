@@ -1,0 +1,4 @@
+导读：
+只有注册用户才可以评论。
+评论标题：<?php comment_form_title( '留言', '留言给 %s' ); ?>
+提交评论：<?php do_action('comment_form', $post->ID); ?>

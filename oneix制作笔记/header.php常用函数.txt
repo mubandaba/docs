@@ -1,0 +1,12 @@
+<?php bloginfo(’name’); ?> 网站标题
+<?php wp_title(); ?> 日志或页面标题
+<?php bloginfo(’stylesheet_url’); ?> Wordpress 主题样式表文件style.css 的相对地址
+<?php bloginfo(’pingback_url’); ?> Wordpress 博客的Pingback 地址
+<?php bloginfo(’template_url’); ?> Wordpress 主题文件的相对地址
+<?php bloginfo(’version’); ?> 博客的Wordpress 版本
+<?php bloginfo(’atom_url’); ?> Wordpress 博客的Atom 地址
+<?php bloginfo(’rss2_url’); ?> Wordpress 博客的RSS2 地址
+<?php bloginfo(’url’); ?> Wordpress 博客的绝对地址
+<?php bloginfo(’name’); ?> Wordpress 博客的名称
+<?php bloginfo(’html_type’); ?> 网站的HTML 版本
+<?php bloginfo(’charset’); ?> 网站的字符编码格式

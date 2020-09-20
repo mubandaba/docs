@@ -1,0 +1,19 @@
+这是目前用的最多的技巧之一，很多WordPress模板开发者都已经知道，并且在用了。
+if ( function_exists('register_sidebar') )
+register_sidebar(array('name'=>'MiddleSidebar',
+'before_widget' => '<li class="widget">',
+'after_widget' => '</li>',
+'before_title' => '<h2 class="widgettitle">',
+'after_title' => '</h3>',
+));
+register_sidebar(array('name'=>'FooterSidebar',
+'before_widget' => '<li class="widget">',
+'after_widget' => '</li>',
+'before_title' => '<h2 class="widgettitle">',
+'after_title' => '</h3>',
+));
+上面的代码可以增加两个侧边栏的小模块。以此类推，你可以添加无限多侧边栏的小模块。添加完上面的代码后，你需要把下面的代码添加到你要出现这边小模块的地方。
+<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('MiddleSidebar') ) : ?>
+<!–Default sidebar info goes here–>
+<?php endif; ?>
+注意：侧边栏并不一定需要出现在sidebar.php文件里面。

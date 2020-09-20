@@ -1,0 +1,74 @@
+导读：本篇文章重点解读菜单和meta,Header.php内容包括logo,title,meta和脚本的引用以及菜单的
+显示。
+1)	title的显示
+首先介绍几个条件判断标签，他们在整个主题开发中起着非常重要的作用。
+is_home() ：当前页面为主页时返回true
+ is_category()：当前页面为分类页时返回true
+ is_single()：当前页面为单文章页时返回true
+ is_page()：当前页面为单页面时返回true
+更多条件判断标签请看：http://codex.wordpress.org/zh-cn:条件标签
+您可以根据不同的需要来决定显示不同的内容。Title内容的显示会一定程度影响到SEO的优化，举例
+如下：
+<title><?php if ( is_home() ) {
+        bloginfo('name'); echo " - "; bloginfo('description');
+    } elseif ( is_category() ) {
+        single_cat_title(); echo " - "; bloginfo('name');
+    } elseif (is_single() || is_page() ) {
+        single_post_title();
+    } elseif (is_search() ) {
+        echo "搜索结果"; echo " - "; bloginfo('name');
+    } elseif (is_404() ) {
+        echo '页面未找到!';
+    } else {
+        wp_title('',true);
+} ?></title>
+bloginfo('name')-博客标题，bloginfo('description')-博客描述，他们的内容在管理员后台“设置
+->常规”中手动输入。
+2)meta的显示
+关键字(keywords)和描述(description)的内容显示也会影响到seo，现在有很多关于此类的SEO插件
+，但是大多过于繁杂和臃肿，如果您愿意自己动手简化它的代码量请直接跟着我做：
+<?php $description = "提供免费wordpress主题开发教程，zencart模板开发教程，wp二次开发
+，zencart二次开发，插件开发等复杂的网站建设任务。";
+    $keywords = "免费wordpress主题开发教程,zencart模板开发教程,zencart二次开发,wp二次开
+    发";
+if (is_home()){
+
+} elseif (is_single()){
+    $description =  $post->post_title ;
+    $keywords = "";
+    $tags = wp_get_post_tags($post->ID);
+    foreach ($tags as $tag ) {
+        $keywords = $keywords . $tag->name . ", ";
+    }
+} elseif(is_category()){
+    $description     = category_description();
+}
+?>
+<meta name="keywords" content="<?php echo $keywords ?>" />
+<meta name="description" content="<?php echo $description ?>" />
+将此代码修改后粘贴到您的header.php的body标签前，它的作用绝对不比那些复杂的插件差。如果您
+一点都不懂代码，那我推荐您使用All in One SEO插件。
+3）脚本引用
+脚本引用主要是注意路径的问题。按照正常的我们一般是这样引用css文件的：
+<link rel="stylesheet" href="./style.css" type="text/css" media="screen" />但是当我们在
+这里这样做的时候，页面并没有起到什么变化，原因很简单，WordPress的主题，是要被WordPress的
+主程序调用，经过层层解析才能把你的博客显示出来，而不是简简单单的html静态网页文件。正确的
+调用方法有2中：
+第一中：将src更改为完整url路径如：
+http://www.diyiyusuan.com/wp-content/themes/Mimoza/css/screen.css
+第二种：
+<link rel="stylesheet" href="<?php bloginfo('stylesheet_directory'); ?>/css/screen.css" 
+type="text/css" media="screen, projection" />
+有关bloginfo()的详细介绍请看:
+http://codex.wordpress.org/Function_Reference/bloginfo
+js的引用和css引用规则是一样的。
+4）显示菜单
+Wordpress3.0版本之后对菜单做了专门的改进，把它提取出来专门做了栏目，以往的菜单相对比较简
+单，但适用不了较复杂的应用，现在先来做最简单，适用大部分版本的菜单制作：
+wp_nav_menu( 
+'depth=1&theme_location=menu_1&menu_id=pagemenu&container=&fallback_cb=menu_1_default');
+想要实现较为复杂的菜单，请看后续菜单显示专题或给我留言探讨。
+5）缓存的使用
+在<body>前面，</head>后面添加PHP代码，用于提高程序运行效率：<?php flush(); ?>
+第一天任务就此结束，是不是对很多函数都不是很熟悉，刚开始是这样的，以后会慢慢的熟悉，坚持
+不要放弃就能看到明天的彩虹。

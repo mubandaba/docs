@@ -1,0 +1,26 @@
+<?php bloginfo('name'); ?> : 博客名称(Title)
+<?php bloginfo('stylesheet_url'); ?> : CSS文件路径
+<?php bloginfo('pingback_url'); ?> : PingBack Url
+<?php bloginfo('template_url'); ?> : 模板文件路径
+<?php bloginfo('version'); ?> : WordPress版本
+<?php bloginfo('atom_url'); ?> : Atom Url
+<?php bloginfo('rss2_url'); ?> : RSS 2.o Url
+<?php bloginfo('url'); ?> : 博客 Url
+<?php bloginfo('html_type'); ?> : 博客网页Html类型
+<?php bloginfo('charset'); ?> : 博客网页编码
+<?php bloginfo('description'); ?> : 博客描述
+<?php wp_title(); ?> : 特定内容页(Post/Page)的标题
+导航菜单注册函数 register_nav_menus()
+
+
+
+
+
+
+
+
+
+
+
+
+

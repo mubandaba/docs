@@ -1,0 +1,2 @@
+假如你比较懒，不想在撰写文章的时候每篇文章都输入摘要，就可以让系统自动截取一定长度的文字来作为摘要输出。下面的代码默认是100个字节，也就是50个汉字。你可以把数值修改成符合你需要的数字。
+function new_excerpt_length($length) { return 100; } add_filter('excerpt_length', 'new_excerpt_length');

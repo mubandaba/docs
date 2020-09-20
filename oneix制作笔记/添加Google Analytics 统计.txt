@@ -1,0 +1,7 @@
+添加Google Analytics 统计
+只需要把下面的代码添加到functions. php文件里面——注意把里面的中文部分替换成你的Google 统计代码，然后你就不用担心了。
+<?php
+add_action('wp_footer', 'add_googleanalytics');
+function add_googleanalytics() { ?>
+// 把Google 统计代码复制到这里
+<?php } ?>

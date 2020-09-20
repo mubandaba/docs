@@ -1,0 +1,2 @@
+嵌套功能是WordPress自身带有的最好功能之一，只可惜很多WordPress模板都不支持。很多文章都有提到过修改的方法，但一般都涉及到修改comments文件和header文件。事实上，通过修改functions.php文件来修改是最简便的，而且一劳永逸。
+// enable threaded comments function enable_threaded_comments(){ if (!is_admin()) { if (is_singular() AND comments_open() AND (get_option('thread_comments') == 1)) wp_enqueue_script('comment-reply'); } } add_action('get_header', 'enable_threaded_comments');

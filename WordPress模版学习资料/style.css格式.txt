@@ -1,0 +1,44 @@
+/*
+Theme Name: 你的主题名称，随便起
+Theme URI: 你的官方网站网址
+Description: 你的主题描述文字
+Version: 版本号
+Author: 作者的名称  
+Author URI: 作者的网站网址
+Tags: 随便起个标签名字
+*/
+
+
+
+/*
+Theme Name: Twenty Seventeen
+Theme URI: https://wordpress.org/themes/twentyseventeen/
+Author: the WordPress team
+Author URI: https://wordpress.org/
+Description: Twenty Seventeen brings your site to life with immersive featured images and subtle animat
+ions. With a focus on business sites, it features multiple sections on the front page as well as widget
+s, navigation and social menus, a logo, and more. Personalize its asymmetrical grid with a custom color
+scheme and showcase your multimedia content with post formats. Our default theme for 2017 works great
+in many languages, for any abilities, and on any device.
+Version: 1.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: twentyseventeen
+Tags: one-column, two-columns, right-sidebar, flexible-header, accessibility-ready, custom-colors, cust
+om-header, custom-menu, custom-logo, editor-style, featured-images, footer-widgets, post-formats, rtl-l
+anguage-support, sticky-post, theme-options, threaded-comments, translation-ready
+This theme, like WordPress, is licensed under the GPL.
+Use it to make something cool, have fun, and share what you've learned with others.
+*/
+
+
+Theme Name (*): 主题名称。
+Theme URI: 公共网页的URL，用户可以在其中找到有关该主题的更多信息。
+Author (*): 开发主题的个人或组织的名称。 建议使用主题作者的wordpress.org用户名。
+Author URI: 创作个人或组织的网址。
+Description (*): 简短描述的主题。
+Version (*): 该版本以X.X或X.X.X格式编写。
+License (*): 主题的协议。
+License URI (*): 主题许可证的URL。
+Text Domain (*): 用于文本域的字符串用于翻译。
+Tags: 允许用户使用标签过滤器查找主题的单词或短语。 标签的完整列表在“主题评论手册”中。

@@ -1,0 +1,13 @@
+导读：
+10天学会wordpress主题开发系列之第七天学习搜索结果页。当中loop的使用和分页的简单介绍是本篇文章关注的要点。
+搜索出来的结果列表详细请见10天学会wordpress主题开发系列(index.php)篇，关于搜索页面中较为关键的部分为loop的介绍：
+如何在wordpress中使用loop：官方文档：http://codex.wordpress.org/The_Loop 
+搜索页面中一般的数据都比较多，所以分页也是非常关键的。
+<div class="navigation">
+			<?php if(function_exists('wp_pagenavi')) { wp_pagenavi(); } else { ?>
+			<div class="alignleft"><?php next_posts_link('&laquo; Older Entries') ?></div>
+			<div class="alignright"><?php previous_posts_link('Newer Entries &raquo;') ?></div>
+			<?php } ?>
+		</div>
+后续文章会专门有一篇关于wp_pagenavi函数的详细介绍，就是本系统现在采用的分页模式和样式，敬请关注。
+对wordpress各个版本都适用的默认分页为：next_posts_link()：下一页、previous_posts_link：上一页。

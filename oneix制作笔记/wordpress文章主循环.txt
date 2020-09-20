@@ -1,0 +1,62 @@
+<?php if(have_posts()) : ?>
+<?php while(have_posts()) : the_post(); ?>
+// the code inside the loop //插入Loop 中的代码.
+//这里是循环取出文章相关的信息
+<?php endwhile; ?>
+<?php else : ?>
+//这里是如果没有文章的话，就显示这里的信息。
+<?php endif; ?>
+
+需要注意的是这里的if 和while 后面用的是冒号不是分号，如果误写成分号就不能实现预
+想的功能啦。
+
+==================================================
+<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+//循环开始，1.5-2.8版本
+<!—此处输出每篇文章信息 ，是循环主题–>
+<?php endwhile; else: ?>
+<p><?php _e('Sorry, no posts matched your criteria.'); ?></p>//表示没有文章时的结果
+<?php endif; ?>
+
+用在循环主体之间的标签主要有：
+the_title( );//输出此时的文章标题。有三个参数，$before,$after,$display,可以为空。
+get_the_title();//返回给定ID的文章标题字符串。一个参数，$id.可以在循环体外用。
+the_ID( );//输出此时的文章的ID。没有参数。
+get_the_ID();//返回此时的文章的ID，是一个数值型，没有参数。
+the_title_attribute();//输出此时文章的标题，但经过净化，包括去掉html标签等。有三个参数，$before,$after,$echo,可以为空，默认$echo为1，即输出。
+the_content();//输出此时的文章内容.有三个参数。默认不填。
+the_excerpt();//输出此时的文章摘要。没有参数。
+the_tags();//输出这篇文章附加的标签（tags），每个标签带有链接，点击就会显示该标签所包含的所有文章。有三个参数，$before, $separator, $after.可以为空。
+the_category();//输出这篇文章所属的分类（可能有多项）,同时带有链接，点击就会显示该分类下的所有文章。有二个参数，$separator, $parents.，可以为空。
+the_author();//输出这篇文章的作者名，该作者档案中的显示名。没有参数。
+the_author_link();//输出这篇文章的作者显示名，同时链接到该作者的主页。没有参数。
+the_author_posts_link();//输出这篇文章的作者显示名，同时加有链接，点击就会显示该作者发表的所有文章。没有参数。
+the_author_posts();//输出这篇文章的作者共发表文章的总数（草稿与私有文章不算）
+the_time();//输出篇文章的发表时间，需要匹配时间格式参数。l, F j, Y,s, g:i a等
+the_date();//输出文章的发表日期，只是循环体中的第一篇文章的日期。四个参数，$format, $before, $after, $echo.
+the_date_xml();//以 YYYY-MM-DD 的格式输出这篇文章的发表时间，无参数。
+get_permalink();//得到文章单个页面显示的固定链接。在循环体内不带参数时，返回当前文章的固定链接，在循环体外不带参数时，返回循环体最后一篇文章的固定链接，带有参数$id时，返回对应文章的固定链接。
+the_permalink();//输出当前文章单个页面显示的固定链接。没有参数。
+
+=====================================================
+
+
+在WordPress 的第一篇文章中插入Google 广告（成功）
+
+<?php while ( have_posts() ): the_post(); $count++;?>
+<?php if ($count == 1) : ?>
+// Insert your Google AdSense code here
+<?php endif; ?>
+<?php endwhile; ?>
+
+你同样可以改变count 值来让广告比如放在不同的日志后面，比如改成count == 2, 则把
+Google 广告显示在第二篇日志后面.
+
+
+
+
+
+
+
+
+

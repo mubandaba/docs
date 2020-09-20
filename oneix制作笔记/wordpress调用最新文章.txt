@@ -1,0 +1,6 @@
+<?php get_archives('postbypost', 10); ?> (显示10篇最新更新文章)或者
+<?php wp_get_archives(‘type=postbypost&limit=20&format=custom’); ?>
+后面这个代码显示你博客中最新的20篇文章，其中format=custom这里主要用来自定义这份文章列表的显示样式。具体的参数和使用方法你可以参考官方的使用说明- wp_get_archvies。(fromat=custom也可以不要，默认以UL列表显示文章标题。)
+
+
+

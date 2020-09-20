@@ -1,0 +1,9 @@
+与模板相关的其他函数
+
+<?php _e(’Message’); ?> : 输出相应信息
+<?php wp_register(); ?> : 显示注册链接
+<?php wp_loginout(); ?> : 显示登录/注销链接
+<!–next page–> : 将当前内容分页
+<!–more–> : 将当前内容截断，以不在主页/目录页显示全部内容
+<?php timer_stop(1); ?> : 网页加载时间(秒)
+<?php echo get_num_queries(); ?> : 网页加载查询量

@@ -1,0 +1,2 @@
+一般设定自动摘要输出，你会经常在WordPress博客的首页看到“［。..］”这样的符号。为了界面的美观，或者是个性化的需要，你可以把这个默认的符号改变为其他的符号。而以下的代码就是为了实现这个而写：
+// custom excerpt ellipses for 2.9 function custom_excerpt_more($more) { return '…'; } add_filter('excerpt_more', 'custom_excerpt_more'); /* custom excerpt ellipses for 2.8- function custom_excerpt_more($excerpt) { return str_replace('[...]', '…', $excerpt); } add_filter('wp_trim_excerpt', 'custom_excerpt_more'); */

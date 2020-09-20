@@ -1,0 +1,40 @@
+导读：相对于header.php而言footer.php简单很多，footer.php主要是一些版权信息和友情链接的显
+示，这里主要讲解利用wordpress显示一半大网站下方显示的友情链接。
+Wordpress3.0以后的链接选项较早前版本更加丰富和人性化，你可以将友情链接分为图片链接和文字
+链接2部分，然后在不同的位置分别显示，是不是更像其他平台类的站点了呢，呵呵。
+文字链接显示例子：
+<blockquote style="background-color: #f0f0f0;">
+<pre>&lt;?php 
+wp_list_bookmarks('title_li=&amp;categorize=0&amp;before=&lt;span&gt;&amp;after=&lt;/spa
+n&gt;&show_images=0 '); ?&gt;
+
+输出结果：
+
+&lt;span&gt;&lt;a target="_blank" href="http://www.diyiyusuan.com/"&gt;第一预算
+&lt;/a&gt;&lt;/span&gt;&lt;span&gt;
+&lt;a target="_blank" href="http://www.diyiyusuan.com/"&gt;DIY 建站易教程网
+&lt;/a&gt;&lt;/span&gt;
+</pre>
+</blockquote>
+图片链接显示例子：
+<blockquote style="background-color: #f0f0f0;">
+<pre>&lt;?php 
+wp_list_bookmarks('title_li=&amp;categorize=0&amp;before=&lt;span&gt;&amp;after=&lt;/spa
+n&gt;&show_images=1 '); ?&gt;
+
+输出结果：
+
+&lt;span&gt;&lt;a target="_blank" href="http://www.diyiyusuan.com/"&gt;&lt;img alt="diy 
+建站易教程网" 
+src="http://www.diyiyusuan.com/wp/wp-content/uploads/2010/09/11-150x150.jpg"&gt;&lt;/a&g
+t;&lt;/span&gt;
+</pre>
+</blockquote>
+备注：图片链接需注意图片的大小，上传的时候设置好图片大小为宜。
+wp_list_bookmarks()更加详细的文档说明：<a href=’ 
+http://codex.wordpress.org/Function_Reference/wp_list_bookmarks’ target=”_blank”>官方文
+档</a>
+在footer.php的</body>标签之前添加<?php wp_footer();?> footer关键部分就全部结束了。
+今天的课程是不是比较轻松呢，是的，尾部文件本身就较为简单，没有太多的知识点，你甚至可以把
+一些内容写成静态的，如果要求不是很高的话。整理好今天的课程准备明天更为关键的siderbar.php
+课程。

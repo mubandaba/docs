@@ -1,0 +1,11 @@
+如果你的博客接受读者的投稿，想在该篇文章出现投稿者的姓名，同时又不想通过添加作者的这种繁琐而麻烦的方式来操作，则可以使用下面的代码。使用下面的代码后，只需要在撰写文章的时候在自定义区域填上投稿者的姓名即可。系统会自动将发布者的名称换成投稿者的名称。
+这个代码对接受读者投稿较多的网站，或者是资讯型的网站非常有用（利用它来显示来源）。
+add_filter( 'the_author', 'guest_author_name' );
+add_filter( 'get_the_author_display_name', 'guest_author_name' );
+function guest_author_name( $name ) {
+global $post;
+$author = get_post_meta( $post->ID, 'guest-author', true );
+if ( $author )
+$name = $author;
+return $name;
+}
